@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Organisation | Sky Registry{% endblock %}
+{% block page_title %}Organisation{% endblock %}
+{% block page_subtitle %}Browse departments, leaders, teams, and dependencies{% endblock %}
+{% block content %}
+<div class="layout-grid">
+  <div class="card">
+    <div class="card__body">
+      <h3 class="section-title">Departments</h3>
+      <p class="section-subtitle">
+        Search and select a department to view its details.
+      </p>
+
+      <form method="get" class="search-form">
+        <input
+          type="text"
+          name="q"
+          value="{{ query }}"
+          placeholder="Search by department or specialisation"
+          class="search-input"
+        />
+      </form>
+
+      <div class="department-list">
+        {% for department in departments %}
+        <a
+          href="{% url 'organisation:department_detail' department.id %}"
+          class="department-list__item"
+        >
+          <h4 class="department-list__name">{{ department.name }}</h4>
+          <p class="department-list__meta">{{ department.leader }}</p>
+        </a>
+        {% empty %}
+        <div class="empty-state">No departments matched your search.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card__body">
+      <h3 class="section-title">Organisation Overview</h3>
+      <p class="section-subtitle">
+        Select a department from the list to see the department leader,
+        specialisation, teams, and dependencies.
+      </p>
+
+      <div class="empty-state">Choose a department to continue.</div>
+    </div>
+  </div>
+</div>
+{% endblock %}

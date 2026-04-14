@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}Department Details | Sky Registry{% endblock %}
+{% block page_title %}Department Details{% endblock %}
+{% block page_subtitle %}View department structure, teams, and dependencies{% endblock %}
+{% block content %}
+{% if department %}
+<div class="stats-grid">
+  <div class="stat-card">
+    <p class="stat-card__label">Department</p>
+    <p class="stat-card__value">{{ department.name }}</p>
+  </div>
+  <div class="stat-card">
+    <p class="stat-card__label">Leader</p>
+    <p class="stat-card__value">{{ department.leader }}</p>
+  </div>
+  <div class="stat-card">
+    <p class="stat-card__label">Teams</p>
+    <p class="stat-card__value">{{ department.teams|length }}</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card__body">
+    <div class="info-grid">
+      <div class="info-box">
+        <p class="info-box__label">Department Leader</p>
+        <p class="info-box__value">{{ department.leader }}</p>
+      </div>
+      <div class="info-box">
+        <p class="info-box__label">Specialisation</p>
+        <p class="info-box__value">{{ department.specialisation }}</p>
+      </div>
+    </div>
+
+    <h3 class="section-title">Teams</h3>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Team Name</th>
+            <th>Manager</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for team in department.teams %}
+          <tr>
+            <td>{{ team.name }}</td>
+            <td>{{ team.manager }}</td>
+            <td><span class="badge badge--success">{{ team.status }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="section-title">Dependencies</h3>
+    <ul class="dependency-list">
+      {% for dependency in department.dependencies %}
+      <li class="dependency-list__item">{{ dependency }}</li>
+      {% empty %}
+      <li class="dependency-list__item">No dependencies recorded.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% else %}
+<div class="card">
+  <div class="card__body">
+    <div class="empty-state">Department not found.</div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

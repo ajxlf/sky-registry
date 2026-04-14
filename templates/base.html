@@ -1,0 +1,60 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Sky Engineering Registry{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+    <script defer src="{% static 'js/app.js' %}"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <div class="sidebar-brand__logo">SE</div>
+          <div>
+            <h1 class="sidebar-brand__title">Sky Registry</h1>
+            <p class="sidebar-brand__subtitle">Engineering Portal</p>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a
+            href="{% url 'organisation:department_list' %}"
+            class="sidebar-nav__link sidebar-nav__link--active"
+            >Organisation</a
+          >
+          <a href="#" class="sidebar-nav__link">Teams</a>
+          <a href="#" class="sidebar-nav__link">Messages</a>
+          <a href="#" class="sidebar-nav__link">Schedule</a>
+          <a href="#" class="sidebar-nav__link">Reports</a>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <h2 class="topbar__title">
+              {% block page_title %}Dashboard{% endblock %}
+            </h2>
+            <p class="topbar__subtitle">
+              {% block page_subtitle %}Engineering teams and structure
+              overview{% endblock %}
+            </p>
+          </div>
+
+          <div class="topbar__actions">
+            <button class="button button--secondary" type="button">
+              Profile
+            </button>
+          </div>
+        </header>
+
+        <section class="content-area">
+          {% block content %}{% endblock %}
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
