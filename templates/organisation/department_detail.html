@@ -1,7 +1,15 @@
-{% extends 'base.html' %} {% block title %}Department Details | Sky Registry{%
-endblock %} {% block page_title %}Department Details{% endblock %} {% block
-page_subtitle %}View department structure, teams, and dependencies{% endblock %}
-{% block content %} {% if department %}
+{% extends 'base.html' %}
+
+{% block title %}Department Details | Sky Registry{% endblock %}
+
+{% block page_title %}Department Details{% endblock %}
+
+{% block page_subtitle %}
+View department structure, teams, and dependencies
+{% endblock %}
+
+{% block content %}
+{% if department %}
 <div class="stats-grid">
   <div class="stat-card">
     <p class="stat-card__label">Department</p>
@@ -13,7 +21,7 @@ page_subtitle %}View department structure, teams, and dependencies{% endblock %}
   </div>
   <div class="stat-card">
     <p class="stat-card__label">Teams</p>
-    <p class="stat-card__value">{{ department.teams|length }}</p>
+    <p class="stat-card__value">{{ department.teams.all|length }}</p>
   </div>
 </div>
 
@@ -41,11 +49,15 @@ page_subtitle %}View department structure, teams, and dependencies{% endblock %}
           </tr>
         </thead>
         <tbody>
-          {% for team in department.teams %}
+          {% for team in department.teams.all %}
           <tr>
             <td>{{ team.name }}</td>
             <td>{{ team.manager }}</td>
             <td><span class="badge badge--success">{{ team.status }}</span></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="3">No teams recorded.</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -54,7 +66,7 @@ page_subtitle %}View department structure, teams, and dependencies{% endblock %}
 
     <h3 class="section-title">Dependencies</h3>
     <ul class="dependency-list">
-      {% for dependency in department.dependencies %}
+      {% for dependency in department.dependencies.all %}
       <li class="dependency-list__item">{{ dependency.description }}</li>
       {% empty %}
       <li class="dependency-list__item">No dependencies recorded.</li>
@@ -68,4 +80,5 @@ page_subtitle %}View department structure, teams, and dependencies{% endblock %}
     <div class="empty-state">Department not found.</div>
   </div>
 </div>
-{% endif %} {% endblock %}
+{% endif %}
+{% endblock %}
