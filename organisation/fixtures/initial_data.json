@@ -1,0 +1,132 @@
+[
+    {
+      "model": "organisation.department",
+      "pk": 1,
+      "fields": {
+        "name": "Mobile Engineering",
+        "leader": "Alex Smith",
+        "specialisation": "Builds and maintains mobile applications across iOS and Android.",
+        "created_at": "2026-04-15T00:00:00Z"
+      }
+    },
+    {
+      "model": "organisation.department",
+      "pk": 2,
+      "fields": {
+        "name": "Platform & Tools",
+        "leader": "Morgan Reed",
+        "specialisation": "Supports internal tooling, CI/CD, and developer workflows.",
+        "created_at": "2026-04-15T00:00:00Z"
+      }
+    },
+    {
+      "model": "organisation.department",
+      "pk": 3,
+      "fields": {
+        "name": "xTV Web",
+        "leader": "Sam Carter",
+        "specialisation": "Delivers web-based TV platform experiences and frontend systems.",
+        "created_at": "2026-04-15T00:00:00Z"
+      }
+    },
+    {
+      "model": "organisation.team",
+      "pk": 1,
+      "fields": {
+        "name": "Mobile Player",
+        "manager": "Priya Shah",
+        "status": "Active",
+        "department": 1
+      }
+    },
+    {
+      "model": "organisation.team",
+      "pk": 2,
+      "fields": {
+        "name": "iOS Client",
+        "manager": "Jordan Blake",
+        "status": "Active",
+        "department": 1
+      }
+    },
+    {
+      "model": "organisation.team",
+      "pk": 3,
+      "fields": {
+        "name": "Build Systems",
+        "manager": "Chris Young",
+        "status": "Active",
+        "department": 2
+      }
+    },
+    {
+      "model": "organisation.team",
+      "pk": 4,
+      "fields": {
+        "name": "Developer Experience",
+        "manager": "Nina Patel",
+        "status": "Active",
+        "department": 2
+      }
+    },
+    {
+      "model": "organisation.team",
+      "pk": 5,
+      "fields": {
+        "name": "Playback UI",
+        "manager": "Leah James",
+        "status": "Active",
+        "department": 3
+      }
+    },
+    {
+      "model": "organisation.team",
+      "pk": 6,
+      "fields": {
+        "name": "Web Platform",
+        "manager": "Tom Fisher",
+        "status": "Active",
+        "department": 3
+      }
+    },
+    {
+      "model": "organisation.dependency",
+      "pk": 1,
+      "fields": {
+        "description": "Mobile Player → Backend APIs",
+        "department": 1
+      }
+    },
+    {
+      "model": "organisation.dependency",
+      "pk": 2,
+      "fields": {
+        "description": "iOS Client → Mobile Player",
+        "department": 1
+      }
+    },
+    {
+      "model": "organisation.dependency",
+      "pk": 3,
+      "fields": {
+        "description": "Developer Experience → Build Systems",
+        "department": 2
+      }
+    },
+    {
+      "model": "organisation.dependency",
+      "pk": 4,
+      "fields": {
+        "description": "Playback UI → Web Platform",
+        "department": 3
+      }
+    },
+    {
+      "model": "organisation.dependency",
+      "pk": 5,
+      "fields": {
+        "description": "Web Platform → Backend APIs",
+        "department": 3
+      }
+    }
+  ]
