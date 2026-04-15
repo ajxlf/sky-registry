@@ -1,69 +1,30 @@
-from django.shortcuts import render
-
-# Create your views here.
-
-departments = [
-    {
-        "id": 1,
-        "name": "Mobile Engineering",
-        "leader": "Alex Smith",
-        "specialisation": "Builds and maintains mobile applications across iOS and Android.",
-        "teams": [
-            {"name": "Mobile Player", "manager": "Priya Shah", "status": "Active"},
-            {"name": "iOS Client", "manager": "Jordan Blake", "status": "Active"},
-        ],
-        "dependencies": [
-            "Mobile Player → Backend APIs",
-            "iOS Client → Mobile Player",
-        ],
-    },
-    {
-        "id": 2,
-        "name": "Platform & Tools",
-        "leader": "Morgan Reed",
-        "specialisation": "Supports internal tooling, CI/CD, and developer workflows.",
-        "teams": [
-            {"name": "Build Systems", "manager": "Chris Young", "status": "Active"},
-            {"name": "Developer Experience", "manager": "Nina Patel", "status": "Active"},
-        ],
-        "dependencies": [
-            "Developer Experience → Build Systems",
-        ],
-    },
-    {
-        "id": 3,
-        "name": "xTV Web",
-        "leader": "Sam Carter",
-        "specialisation": "Delivers web-based TV platform experiences and frontend systems.",
-        "teams": [
-            {"name": "Playback UI", "manager": "Leah James", "status": "Active"},
-            {"name": "Web Platform", "manager": "Tom Fisher", "status": "Active"},
-        ],
-        "dependencies": [
-            "Playback UI → Web Platform",
-            "Web Platform → Backend APIs",
-        ],
-    },
-]
+from django.shortcuts import render, get_object_or_404
+from .models import Department
 
 def department_list(request):
-    query = request.GET.get("q", "").strip().lower()
+    query = request.GET.get("q", "").strip()
+
+    departments = Department.objects.prefetch_related("teams", "dependencies").all()
 
     if query:
-        filtered_departments = [
-            dept for dept in departments
-            if query in dept["name"].lower() or query in dept["specialisation"].lower()
-        ]
-    else:
-        filtered_departments = departments
+        departments = departments.filter(
+            name__icontains=query
+        ) | departments.filter(
+            specialisation__icontains=query
+        )
+        departments = departments.distinct()
 
     return render(request, "organisation/department_list.html", {
-        "departments": filtered_departments,
-        "query": request.GET.get("q", ""),
+        "departments": departments,
+        "query": query,
     })
 
+
 def department_detail(request, pk):
-    department = next((dept for dept in departments if dept["id"] == pk), None)
+    department = get_object_or_404(
+        Department.objects.prefetch_related("teams", "dependencies"),
+        pk=pk
+    )
 
     return render(request, "organisation/department_detail.html", {
         "department": department

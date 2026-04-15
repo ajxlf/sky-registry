@@ -55,7 +55,7 @@ page_subtitle %}View department structure, teams, and dependencies{% endblock %}
     <h3 class="section-title">Dependencies</h3>
     <ul class="dependency-list">
       {% for dependency in department.dependencies %}
-      <li class="dependency-list__item">{{ dependency }}</li>
+      <li class="dependency-list__item">{{ dependency.description }}</li>
       {% empty %}
       <li class="dependency-list__item">No dependencies recorded.</li>
       {% endfor %}
