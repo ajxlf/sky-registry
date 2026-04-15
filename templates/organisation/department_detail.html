@@ -1,9 +1,7 @@
-{% extends 'base.html' %}
-{% block title %}Department Details | Sky Registry{% endblock %}
-{% block page_title %}Department Details{% endblock %}
-{% block page_subtitle %}View department structure, teams, and dependencies{% endblock %}
-{% block content %}
-{% if department %}
+{% extends 'base.html' %} {% block title %}Department Details | Sky Registry{%
+endblock %} {% block page_title %}Department Details{% endblock %} {% block
+page_subtitle %}View department structure, teams, and dependencies{% endblock %}
+{% block content %} {% if department %}
 <div class="stats-grid">
   <div class="stat-card">
     <p class="stat-card__label">Department</p>
@@ -70,5 +68,4 @@
     <div class="empty-state">Department not found.</div>
   </div>
 </div>
-{% endif %}
-{% endblock %}
+{% endif %} {% endblock %}
