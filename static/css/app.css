@@ -227,6 +227,50 @@ input {
   transform: translateY(-1px);
 }
 
+.department-list__item-header {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.department-list__count {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.department-list__description {
+  margin: 8px 0 0;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.department-list__item {
+  display: block;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface-soft);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.department-list__item:hover {
+  border-color: var(--primary);
+  background: #fff;
+  transform: translateY(-1px);
+}
+
+.topbar__subtitle {
+  max-width: 56ch;
+}
+
 .department-list__name {
   margin: 0 0 6px;
   font-size: 1rem;

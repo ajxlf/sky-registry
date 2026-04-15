@@ -33,8 +33,12 @@ Browse departments, leaders, teams, and dependencies
           href="{% url 'organisation:department_detail' department.id %}"
           class="department-list__item"
         >
-          <h4 class="department-list__name">{{ department.name }}</h4>
+          <div class="department-list__item-header">
+            <h4 class="department-list__name">{{ department.name }}</h4>
+            <span class="department-list__count">{{ department.teams.count }} teams</span>
+          </div>
           <p class="department-list__meta">{{ department.leader }}</p>
+          <p class="department-list__description">{{ department.specialisation }}</p>
         </a>
         {% empty %}
         <div class="empty-state">No departments matched your search.</div>
