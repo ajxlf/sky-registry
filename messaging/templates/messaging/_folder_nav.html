@@ -1,0 +1,33 @@
+{% load messaging_tags %}
+{% unread_inbox_count as unread %}
+
+<nav class="folder-nav" aria-label="Message folders">
+
+  <div class="folder-nav__left">
+    <a href="{% url 'messaging:inbox' %}"
+       class="folder-nav__tab {% if active_folder == 'inbox' %}folder-nav__tab--active{% endif %}">
+      Inbox
+      {% if unread %}
+        <span class="folder-nav__badge">{{ unread }}</span>
+      {% endif %}
+    </a>
+
+    <a href="{% url 'messaging:sent' %}"
+       class="folder-nav__tab {% if active_folder == 'sent' %}folder-nav__tab--active{% endif %}">
+      Sent
+    </a>
+
+    <a href="{% url 'messaging:drafts' %}"
+       class="folder-nav__tab {% if active_folder == 'drafts' %}folder-nav__tab--active{% endif %}">
+      Drafts
+    </a>
+  </div>
+
+  <div class="folder-nav__right">
+    <a href="{% url 'messaging:compose' %}"
+       class="folder-nav__tab folder-nav__tab--cta {% if active_folder == 'compose' %}folder-nav__tab--active{% endif %}">
+      + Compose
+    </a>
+  </div>
+
+</nav>

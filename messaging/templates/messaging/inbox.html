@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Inbox | Sky Registry{% endblock %}
+{% block page_title %}Inbox{% endblock %}
+{% block page_subtitle %}Messages received from your team{% endblock %}
+
+{% block content %}
+<div class="messaging-shell">
+
+  {% include "messaging/_folder_nav.html" with active_folder="inbox" %}
+
+  <section class="card messaging-card">
+
+    <!-- Header -->
+    <header class="messaging-card__header">
+      <div>
+        <h3 class="section-title">Inbox</h3>
+        <p class="section-subtitle">
+          {{ message_list|length }} message{{ message_list|length|pluralize }}
+        </p>
+      </div>
+
+      <form method="get" class="messaging-search">
+        <input
+          type="text"
+          name="q"
+          value="{{ query }}"
+          placeholder="Search messages..."
+          class="form-input messaging-search__input"
+        />
+      </form>
+    </header>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <table class="data-table message-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Sender</th>
+            <th>Subject</th>
+            <th class="message-table__col-date">Date</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for message in message_list %}
+          <tr class="message-row {% if not message.is_read %}message-row--unread{% endif %}">
+
+            <!-- Unread dot -->
+            <td class="message-row__dot-cell">
+              <span class="message-row__dot {% if message.is_read %}message-row__dot--hidden{% endif %}"></span>
+            </td>
+
+            <!-- Sender -->
+            <td class="message-row__sender">
+              <a href="{% url 'messaging:view' message.pk %}" class="message-row__link">
+                {{ message.sender_name }}
+              </a>
+            </td>
+
+            <!-- Subject -->
+            <td class="message-row__subject">
+              <a href="{% url 'messaging:view' message.pk %}" class="message-row__link">
+                {{ message.subject|default:"(no subject)" }}
+              </a>
+            </td>
+
+            <!-- Date -->
+            <td class="message-row__date">
+              {{ message.created_at|date:"M j, Y" }}
+            </td>
+
+          </tr>
+
+          {% empty %}
+          <tr>
+            <td colspan="4">
+              <div class="empty-state">
+                Your inbox is empty.
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+    </div>
+
+  </section>
+</div>
+{% endblock %}

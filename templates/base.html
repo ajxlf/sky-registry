@@ -22,11 +22,20 @@
         <nav class="sidebar-nav">
           <a
             href="{% url 'organisation:department_list' %}"
-            class="sidebar-nav__link sidebar-nav__link--active"
-            >Organisation</a
+            class="sidebar-nav__link {% if request.path == '/' %}sidebar-nav__link--active{% endif %}"
           >
+            Organisation
+          </a>
+
           <a href="#" class="sidebar-nav__link">Teams</a>
-          <a href="#" class="sidebar-nav__link">Messages</a>
+
+          <a
+            href="{% url 'messaging:inbox' %}"
+            class="sidebar-nav__link {% if 'messages' in request.path %}sidebar-nav__link--active{% endif %}"
+          >
+            Messages
+          </a>
+
           <a href="#" class="sidebar-nav__link">Schedule</a>
           <a href="#" class="sidebar-nav__link">Reports</a>
         </nav>
@@ -58,6 +67,15 @@
         </header>
 
         <section class="content-area">
+
+          {% if messages %}
+            <div class="flash-messages">
+              {% for message in messages %}
+                <div class="flash-message">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
           {% block content %}{% endblock %}
         </section>
       </main>
