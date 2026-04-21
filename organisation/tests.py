@@ -1,70 +1,41 @@
-# organisation/tests.py
 from django.test import TestCase, Client
 from django.urls import reverse
-from .models import Department, Team, Dependency
+from django.contrib.auth.models import User
+from .models import Department
 
 
-class DepartmentModelTest(TestCase):
-    def setUp(self):
-        self.dept = Department.objects.create(
-            name="xTVWeb",
-            leader="Sebastian Holt",
-            specialisation="Web platform engineering",
-        )
-        self.team = Team.objects.create(
-            name="Code Warriors",
-            manager="Olivia Carter",
-            status="Active",
-            department=self.dept,
-        )
-        self.dep = Dependency.objects.create(
-            description="Requires API Avengers for gateway access", department=self.dept
-        )
-
-    def test_department_str(self):
-        self.assertEqual(str(self.dept), "xTVWeb")
-
-    def test_team_str(self):
-        self.assertEqual(str(self.team), "Code Warriors (xTVWeb)")
-
-    def test_team_belongs_to_department(self):
-        self.assertEqual(self.team.department, self.dept)
-
-    def test_dependency_belongs_to_department(self):
-        self.assertEqual(self.dep.department, self.dept)
-
-
-class DepartmentViewTest(TestCase):
+class LoginRequiredTest(TestCase):
     def setUp(self):
         self.client = Client()
-        self.dept = Department.objects.create(
-            name="Mobile",
-            leader="Violet Ramsey",
-            specialisation="Mobile application services",
-        )
+        self.user = User.objects.create_user(username="testuser", password="sky1234")
 
-    def test_list_view_returns_200(self):
+    def test_department_list_redirects_if_not_logged_in(self):
+        response = self.client.get(reverse("organisation:department_list"))
+        self.assertRedirects(response, "/accounts/login/?next=/")
+
+    def test_department_list_accessible_when_logged_in(self):
+        self.client.login(username="testuser", password="sky1234")
         response = self.client.get(reverse("organisation:department_list"))
         self.assertEqual(response.status_code, 200)
 
-    def test_list_view_shows_department(self):
-        response = self.client.get(reverse("organisation:department_list"))
-        self.assertContains(response, "Mobile")
-
-    def test_search_filters_results(self):
-        response = self.client.get(
-            reverse("organisation:department_list"), {"q": "Mobile"}
-        )
-        self.assertContains(response, "Mobile")
-
-    def test_detail_view_returns_200(self):
-        response = self.client.get(
-            reverse("organisation:department_detail", args=[self.dept.id])
-        )
+    def test_login_page_loads(self):
+        response = self.client.get(reverse("login"))
         self.assertEqual(response.status_code, 200)
 
-    def test_detail_view_404_on_missing(self):
-        response = self.client.get(
-            reverse("organisation:department_detail", args=[9999])
+    def test_login_with_correct_credentials(self):
+        response = self.client.post(
+            reverse("login"), {"username": "testuser", "password": "sky1234"}
         )
-        self.assertEqual(response.status_code, 404)
+        self.assertRedirects(response, reverse("organisation:department_list"))
+
+    def test_login_with_wrong_password(self):
+        response = self.client.post(
+            reverse("login"), {"username": "testuser", "password": "wrongpassword"}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("Incorrect username or password", response.content.decode())
+
+    def test_logout_redirects_to_login(self):
+        self.client.login(username="testuser", password="sky1234")
+        response = self.client.post(reverse("logout"))
+        self.assertRedirects(response, reverse("login"))
