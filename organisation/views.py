@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import Department
 
 
+@login_required
 def department_list(request):
     query = request.GET.get("q", "").strip()
 
@@ -23,6 +25,7 @@ def department_list(request):
     )
 
 
+@login_required
 def department_detail(request, pk):
     department = get_object_or_404(
         Department.objects.prefetch_related("teams", "dependencies"), pk=pk
