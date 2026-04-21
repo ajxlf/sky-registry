@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 app_name = 'organisation'
@@ -6,4 +6,6 @@ app_name = 'organisation'
 urlpatterns = [
     path('', views.department_list, name='department_list'),
     path('department/<int:pk>/', views.department_detail, name='department_detail'),
+
+    path('messages/', include(('messaging.urls', 'messaging'), namespace='messaging')),
 ]

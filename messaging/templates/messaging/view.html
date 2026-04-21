@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}{{ message.subject|default:"(no subject)" }} | Sky Registry{% endblock %}
+{% block page_title %}View Message{% endblock %}
+{% block page_subtitle %}{{ message.subject|default:"(no subject)" }}{% endblock %}
+
+{% block content %}
+<div class="messaging-shell">
+
+  {% include "messaging/_folder_nav.html" with active_folder=active_folder %}
+
+  <section class="card messaging-card message-detail">
+
+    <!-- Header -->
+    <header class="message-detail__header">
+      <h3 class="message-detail__subject">
+        {{ message.subject|default:"(no subject)" }}
+      </h3>
+      <p class="message-detail__date">
+        {{ message.created_at|date:"F j, Y, g:i A" }}
+      </p>
+    </header>
+
+    <!-- Meta -->
+    <dl class="message-detail__meta">
+
+      <div class="message-detail__meta-row">
+        <dt>From</dt>
+        <dd>
+          <span class="message-detail__person">{{ message.sender_name }}</span>
+          <span class="message-detail__muted">&lt;{{ message.sender_email }}&gt;</span>
+        </dd>
+      </div>
+
+      <div class="message-detail__meta-row">
+        <dt>To</dt>
+        <dd>
+          <span class="message-detail__person">
+            {{ message.recipient_name|default:message.recipient_email }}
+          </span>
+
+          {% if message.recipient_email and message.recipient_name %}
+            <span class="message-detail__muted">
+              &lt;{{ message.recipient_email }}&gt;
+            </span>
+          {% endif %}
+        </dd>
+      </div>
+
+    </dl>
+
+    <!-- Body -->
+    <article class="message-detail__body">
+      {{ message.body|linebreaks }}
+    </article>
+
+    <!-- Actions -->
+    <footer class="message-detail__actions">
+
+      <!-- LEFT (primary action first) -->
+      <a
+        href="{% url 'messaging:reply' message.pk %}"
+        class="button button--primary"
+      >
+        Reply
+      </a>
+
+      <a
+        href="{% url 'messaging:forward' message.pk %}"
+        class="button button--ghost"
+      >
+        Forward
+      </a>
+
+      <form
+        method="post"
+        action="{% url 'messaging:delete' message.pk %}"
+        class="inline-form"
+        onsubmit="return confirm('Delete this message?');"
+      >
+        {% csrf_token %}
+        <button type="submit" class="button button--danger">
+          Delete
+        </button>
+      </form>
+
+    </footer>
+
+  </section>
+</div>
+{% endblock %}

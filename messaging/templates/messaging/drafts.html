@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Drafts | Sky Registry{% endblock %}
+{% block page_title %}Drafts{% endblock %}
+{% block page_subtitle %}Messages saved as drafts{% endblock %}
+
+{% block content %}
+<div class="messaging-shell">
+
+  {% include "messaging/_folder_nav.html" with active_folder="drafts" %}
+
+  <section class="card messaging-card">
+
+    <!-- Header -->
+    <header class="messaging-card__header">
+      <div>
+        <h3 class="section-title">Drafts</h3>
+        <p class="section-subtitle">
+          {{ message_list|length }} draft{{ message_list|length|pluralize }}
+        </p>
+      </div>
+
+      <form method="get" class="messaging-search">
+        <input
+          type="text"
+          name="q"
+          value="{{ query }}"
+          placeholder="Search drafts..."
+          class="form-input messaging-search__input"
+        />
+      </form>
+    </header>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <table class="data-table message-table">
+        <thead>
+          <tr>
+            <th>Recipient</th>
+            <th>Subject</th>
+            <th class="message-table__col-date">Last modified</th>
+            <th class="message-table__col-actions">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for message in message_list %}
+          <tr class="message-row">
+
+            <!-- Recipient -->
+            <td class="message-row__sender">
+              {{ message.recipient_name|default:"(no recipient)" }}
+            </td>
+
+            <!-- Subject -->
+            <td class="message-row__subject">
+              {{ message.subject|default:"(no subject)" }}
+            </td>
+
+            <!-- Date -->
+            <td class="message-row__date">
+              {{ message.updated_at|date:"M j, Y, g:i A" }}
+            </td>
+
+            <!-- Actions -->
+            <td class="message-row__actions">
+
+              <a
+                href="{% url 'messaging:edit' message.pk %}"
+                class="button button--primary button--small"
+              >
+                Edit
+              </a>
+
+              <form
+                method="post"
+                action="{% url 'messaging:delete' message.pk %}"
+                class="inline-form"
+                onsubmit="return confirm('Delete this draft?');"
+              >
+                {% csrf_token %}
+                <button
+                  type="submit"
+                  class="button button--danger button--small"
+                >
+                  Delete
+                </button>
+              </form>
+
+            </td>
+
+          </tr>
+
+          {% empty %}
+          <tr>
+            <td colspan="4">
+              <div class="empty-state">
+                No drafts saved.
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+    </div>
+
+  </section>
+</div>
+{% endblock %}

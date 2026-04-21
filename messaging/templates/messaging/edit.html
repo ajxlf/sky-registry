@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Draft | Sky Registry{% endblock %}
+{% block page_title %}Edit Draft{% endblock %}
+{% block page_subtitle %}Update and send, or keep saving as draft{% endblock %}
+
+{% block content %}
+<div class="messaging-shell">
+
+  {% include "messaging/_folder_nav.html" with active_folder="drafts" %}
+
+  <section class="card messaging-card">
+
+    <!-- Header -->
+    <header class="messaging-card__header messaging-card__header--single">
+      <div>
+        <h3 class="section-title">Edit Draft</h3>
+        <p class="section-subtitle">
+          Last saved {{ message.updated_at|date:"M j, Y, g:i A" }}
+        </p>
+      </div>
+    </header>
+
+    <!-- Form -->
+    <form method="post" class="compose-form">
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+        <div class="form-error">
+          {{ form.non_field_errors }}
+        </div>
+      {% endif %}
+
+      <!-- Recipient -->
+      <div class="form-field">
+        <label class="form-label" for="{{ form.recipient_email.id_for_label }}">
+          Recipient Email
+        </label>
+
+        {{ form.recipient_email }}
+
+        {% if form.recipient_email.errors %}
+          <p class="form-field__error">
+            {{ form.recipient_email.errors|striptags }}
+          </p>
+        {% endif %}
+      </div>
+
+      <!-- Subject -->
+      <div class="form-field">
+        <label class="form-label" for="{{ form.subject.id_for_label }}">
+          Subject
+        </label>
+
+        {{ form.subject }}
+
+        {% if form.subject.errors %}
+          <p class="form-field__error">
+            {{ form.subject.errors|striptags }}
+          </p>
+        {% endif %}
+      </div>
+
+      <!-- Message -->
+      <div class="form-field">
+        <label class="form-label" for="{{ form.body.id_for_label }}">
+          Message
+        </label>
+
+        {{ form.body }}
+
+        {% if form.body.errors %}
+          <p class="form-field__error">
+            {{ form.body.errors|striptags }}
+          </p>
+        {% endif %}
+      </div>
+
+      <!-- Hidden -->
+      <input
+        type="hidden"
+        name="recipient_name"
+        value="{{ form.recipient_name.value|default:'' }}"
+      />
+
+      <!-- Actions -->
+      <div class="compose-form__actions">
+
+        <!-- LEFT: Delete -->
+        <button
+          type="submit"
+          formaction="{% url 'messaging:delete' message.pk %}"
+          formnovalidate
+          class="button button--danger compose-form__actions-left"
+          onclick="return confirm('Delete this draft?');"
+        >
+          Delete Draft
+        </button>
+
+        <!-- RIGHT: Save + Send -->
+        <button
+          type="submit"
+          name="action"
+          value="draft"
+          class="button button--ghost"
+        >
+          Save as Draft
+        </button>
+
+        <button
+          type="submit"
+          name="action"
+          value="send"
+          class="button button--primary"
+        >
+          Send Message
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+</div>
+{% endblock %}
