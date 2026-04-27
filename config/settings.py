@@ -4,28 +4,11 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 
 """
 
-import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-def _load_simple_env(env_path):
-    if not env_path.exists():
-        return
-    for raw_line in env_path.read_text(encoding="utf-8").splitlines():
-        line = raw_line.strip()
-        if not line or line.startswith("#") or "=" not in line:
-            continue
-        key, value = line.split("=", 1)
-        os.environ.setdefault(key.strip(), value.strip())
-
-
-_load_simple_env(BASE_DIR / ".env")
-
-SECRET_KEY = os.getenv("SECRET_KEY")
-if not SECRET_KEY:
-    raise ValueError("SECRET_KEY is not set. Add it to your .env file.")
+SECRET_KEY = "django-insecure-zt_3)rquekr(1-jgjsg7-9a$-^yk++y9(h9z3c&j79(uh+h$u^"
 
 DEBUG = True
 
