@@ -1,0 +1,310 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Teams - Sky Engineering Registry{% endblock %}
+
+{% block page_title %}Engineering Teams{% endblock %}
+{% block page_subtitle %}Welcome to our Teams page, here you can search for any specific team to set a schedule for a meeting, or email them for any possible issues or queries.{% endblock %}
+
+{% block content %}
+
+<style>
+/* SEARCH */
+.search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+}
+
+.search-bar button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+    transition: 0.25s ease;
+    
+    display: flex;
+    flex-direction: column;
+    min-height: 260px; /* makes cards larger */
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+h2 {
+    margin-bottom: 6px;
+    font-size: 20px;
+}
+
+.meta {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.skills {
+    margin: 10px 0;
+}
+
+.tag {
+    display: inline-block;
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin: 4px;
+}
+
+/* DEPENDENCIES */
+.dependencies {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.upstream { color: #16a34a; }
+.downstream { color: #2563eb; }
+
+.flow {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #475569;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.actions a {
+    flex: 1;
+    text-align: center;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+/* EMAIL */
+.email {
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    color: white;
+}
+
+.email:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+}
+
+/* SCHEDULE */
+.schedule {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+}
+
+.schedule:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+}
+</style>
+
+<div class="search-bar">
+    <input type="text" id="search" placeholder="Search team, skill or manager...">
+    <button type="button" onclick="searchTeams()">Search</button>
+</div>
+
+<div class="grid" id="teams">
+
+    <!-- Platform -->
+    <div class="card" data-name="platform engineering" data-manager="sarah johnson" data-skills="python aws kubernetes ci/cd">
+        <h2>Platform Engineering</h2>
+        <div class="meta">Core Systems • Manager: Sarah Johnson</div>
+        <div class="skills">
+            <span class="tag">Python</span><span class="tag">AWS</span>
+            <span class="tag">Kubernetes</span><span class="tag">CI/CD</span>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>        
+    </div>
+
+    <!-- Web -->
+    <div class="card" data-name="web engineering" data-manager="david thompson" data-skills="react typescript node graphql">
+        <h2>Web Engineering</h2>
+        <div class="meta">Digital Products • Manager: David Thompson</div>
+        <div class="skills">
+            <span class="tag">React</span><span class="tag">TypeScript</span>
+            <span class="tag">Node.js</span><span class="tag">GraphQL</span>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>        
+    </div>
+
+    <!-- Mobile -->
+    <div class="card" data-name="mobile engineering" data-manager="michael roberts" data-skills="swift kotlin react native rest apis">
+        <h2>Mobile Engineering</h2>
+        <div class="meta">Digital Products • Manager: Michael Roberts</div>
+        <div class="skills">
+            <span class="tag">Swift</span><span class="tag">Kotlin</span>
+            <span class="tag">React Native</span><span class="tag">REST APIs</span>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>        
+    </div>
+
+    <!-- QA -->
+    <div class="card" data-name="qa engineering" data-manager="emma clark" data-skills="testing selenium automation qa">
+        <h2>QA Engineering</h2>
+        <div class="meta">Quality Assurance • Manager: Emma Clark</div>
+        <div class="skills">
+            <span class="tag">Testing</span><span class="tag">Selenium</span>
+            <span class="tag">Automation</span><span class="tag">QA</span>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>        
+    </div>
+
+    <!-- DevOps -->
+    <div class="card" data-name="devops engineering" data-manager="liam patel" data-skills="docker ci/cd aws terraform">
+        <h2>DevOps Engineering</h2>
+        <div class="meta">Infrastructure • Manager: Liam Patel</div>
+        <div class="skills">
+            <span class="tag">Docker</span><span class="tag">CI/CD</span>
+            <span class="tag">AWS</span><span class="tag">Terraform</span>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>        
+    </div>
+    <!-- Data -->
+    <div class="card" data-name="data engineering" data-manager="olivia smith" data-skills="python sql spark big data">
+        <h2>Data Engineering</h2>
+        <div class="meta">Data Systems • Manager: Olivia Smith</div>
+        <div class="skills">
+            <span class="tag">Python</span><span class="tag">SQL</span>
+            <span class="tag">Spark</span><span class="tag">Big Data</span>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>        
+    </div>
+
+    <!-- AI -->
+    <div class="card" data-name="ai engineering" data-manager="noah brown" data-skills="machine learning ai python tensorflow">
+        <h2>AI Engineering</h2>
+        <div class="meta">AI Systems • Manager: Noah Brown</div>
+        <div class="skills">
+            <span class="tag">Machine Learning</span><span class="tag">AI</span>
+            <span class="tag">Python</span><span class="tag">TensorFlow</span>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>        
+    </div>
+
+    <!-- Security -->
+    <div class="card" data-name="security engineering" data-manager="ava wilson" data-skills="cybersecurity encryption network security">
+        <h2>Security Engineering</h2>
+        <div class="meta">Cyber Security • Manager: Ava Wilson</div>
+        <div class="skills">
+            <span class="tag">Cybersecurity</span><span class="tag">Encryption</span>
+            <span class="tag">Network Security</span>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>        
+    </div>
+
+    <!-- Backend -->
+    <div class="card" data-name="backend engineering" data-manager="ethan davis" data-skills="java spring api microservices">
+        <h2>Backend Engineering</h2>
+        <div class="meta">Services • Manager: Ethan Davis</div>
+        <div class="skills">
+            <span class="tag">Java</span><span class="tag">Spring</span>
+            <span class="tag">API</span><span class="tag">Microservices</span>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>        
+    </div>
+
+    <!-- Frontend -->
+    <div class="card" data-name="frontend engineering" data-manager="mia taylor" data-skills="html css javascript react ui">
+        <h2>Frontend Engineering</h2>
+        <div class="meta">User Interfaces • Manager: Mia Taylor</div>
+        <div class="skills">
+            <span class="tag">HTML</span><span class="tag">CSS</span>
+            <span class="tag">JavaScript</span><span class="tag">React</span>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>        
+    </div>
+
+</div>
+
+<script>
+function searchTeams() {
+    const input = document.getElementById("search").value.toLowerCase();
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+        const name = card.dataset.name;
+        const manager = card.dataset.manager;
+        const skills = card.dataset.skills;
+
+        if (
+            name.includes(input) ||
+            manager.includes(input) ||
+            skills.includes(input)
+        ) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+</script>
+
+{% endblock %}
