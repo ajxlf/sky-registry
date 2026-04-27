@@ -48,7 +48,7 @@
     
     display: flex;
     flex-direction: column;
-    min-height: 260px; /* makes cards larger */
+    min-height: 260px;
 }
 
 .card:hover {
@@ -99,7 +99,8 @@ h2 {
 .actions {
     display: flex;
     gap: 12px;
-    margin-top: 18px;
+    margin-top: auto;
+    padding-top: 18px;
 }
 
 .actions a {
@@ -137,149 +138,792 @@ h2 {
 </style>
 
 <div class="search-bar">
-    <input type="text" id="search" placeholder="Search team, skill or manager...">
+    <input type="text" id="search" placeholder="Search team, skill, department or lead...">
     <button type="button" onclick="searchTeams()">Search</button>
 </div>
 
 <div class="grid" id="teams">
 
-    <!-- Platform -->
-    <div class="card" data-name="platform engineering" data-manager="sarah johnson" data-skills="python aws kubernetes ci/cd">
-        <h2>Platform Engineering</h2>
-        <div class="meta">Core Systems • Manager: Sarah Johnson</div>
+    <!-- Code Warriors -->
+    <div class="card" data-name="code warriors" data-manager="olivia carter" data-skills="aws/gcp terraform kubernetes ci/cd" data-dept="xtv_web">
+        <h2>Code Warriors</h2>
+        <div class="meta">xTV_Web • Lead: Olivia Carter</div>
         <div class="skills">
-            <span class="tag">Python</span><span class="tag">AWS</span>
-            <span class="tag">Kubernetes</span><span class="tag">CI/CD</span>
+            <span class="tag">AWS/GCP</span><span class="tag">Terraform</span><span class="tag">Kubernetes</span><span class="tag">CI/CD</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Debuggers</span>
+            <div class="flow">Infrastructure Support</div>
         </div>
         <div class="actions">
             <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
             <a href="#" class="schedule">Schedule</a>
-        </div>        
+        </div>
     </div>
 
-    <!-- Web -->
-    <div class="card" data-name="web engineering" data-manager="david thompson" data-skills="react typescript node graphql">
-        <h2>Web Engineering</h2>
-        <div class="meta">Digital Products • Manager: David Thompson</div>
+    <!-- The Debuggers -->
+    <div class="card" data-name="the debuggers" data-manager="james bennett" data-skills="debugging tools (gdb, lldb) stack traces log analysis python" data-dept="xtv_web">
+        <h2>The Debuggers</h2>
+        <div class="meta">xTV_Web • Lead: James Bennett</div>
         <div class="skills">
-            <span class="tag">React</span><span class="tag">TypeScript</span>
-            <span class="tag">Node.js</span><span class="tag">GraphQL</span>
+            <span class="tag">Debugging tools (GDB, LLDB)</span><span class="tag">Stack traces</span><span class="tag">Log analysis</span><span class="tag">Python</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ Bit Masters</span>
+            <div class="flow">Bug Resolution</div>
         </div>
         <div class="actions">
             <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
             <a href="#" class="schedule">Schedule</a>
-        </div>        
+        </div>
     </div>
 
-    <!-- Mobile -->
-    <div class="card" data-name="mobile engineering" data-manager="michael roberts" data-skills="swift kotlin react native rest apis">
-        <h2>Mobile Engineering</h2>
-        <div class="meta">Digital Products • Manager: Michael Roberts</div>
+    <!-- Bit Masters -->
+    <div class="card" data-name="bit masters" data-manager="emma richardson" data-skills="cryptography penetration testing security compliance (iso 27001)" data-dept="xtv_web">
+        <h2>Bit Masters</h2>
+        <div class="meta">xTV_Web • Lead: Emma Richardson</div>
         <div class="skills">
-            <span class="tag">Swift</span><span class="tag">Kotlin</span>
-            <span class="tag">React Native</span><span class="tag">REST APIs</span>
+            <span class="tag">Cryptography</span><span class="tag">Penetration Testing</span><span class="tag">Security Compliance (ISO 27001)</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ API Avengers</span>
+            <div class="flow">Security Fixes</div>
         </div>
         <div class="actions">
             <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
             <a href="#" class="schedule">Schedule</a>
-        </div>        
+        </div>
     </div>
 
-    <!-- QA -->
-    <div class="card" data-name="qa engineering" data-manager="emma clark" data-skills="testing selenium automation qa">
-        <h2>QA Engineering</h2>
-        <div class="meta">Quality Assurance • Manager: Emma Clark</div>
+    <!-- Agile Avengers -->
+    <div class="card" data-name="agile avengers" data-manager="benjamin hayes" data-skills="agile frameworks (scrum, safe, kanban) jira miro confluence" data-dept="xtv_web">
+        <h2>Agile Avengers</h2>
+        <div class="meta">xTV_Web • Lead: Benjamin Hayes</div>
         <div class="skills">
-            <span class="tag">Testing</span><span class="tag">Selenium</span>
-            <span class="tag">Automation</span><span class="tag">QA</span>
+            <span class="tag">Agile frameworks (Scrum, SAFe, Kanban)</span><span class="tag">Jira</span><span class="tag">Miro</span><span class="tag">Confluence</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Sprint Kings</span>
+            <div class="flow">Agile Coaching</div>
         </div>
         <div class="actions">
             <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
             <a href="#" class="schedule">Schedule</a>
-        </div>        
+        </div>
     </div>
 
-    <!-- DevOps -->
-    <div class="card" data-name="devops engineering" data-manager="liam patel" data-skills="docker ci/cd aws terraform">
-        <h2>DevOps Engineering</h2>
-        <div class="meta">Infrastructure • Manager: Liam Patel</div>
+    <!-- Syntax Squad -->
+    <div class="card" data-name="syntax squad" data-manager="sophia mitchell" data-skills="ci/cd github actions jenkins yaml" data-dept="xtv_web">
+        <h2>Syntax Squad</h2>
+        <div class="meta">xTV_Web • Lead: Sophia Mitchell</div>
         <div class="skills">
-            <span class="tag">Docker</span><span class="tag">CI/CD</span>
-            <span class="tag">AWS</span><span class="tag">Terraform</span>
+            <span class="tag">CI/CD</span><span class="tag">GitHub Actions</span><span class="tag">Jenkins</span><span class="tag">YAML</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Feature Crafters</span>
+            <div class="flow">Deployment Pipeline</div>
         </div>
         <div class="actions">
             <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
             <a href="#" class="schedule">Schedule</a>
-        </div>        
-    </div>
-    <!-- Data -->
-    <div class="card" data-name="data engineering" data-manager="olivia smith" data-skills="python sql spark big data">
-        <h2>Data Engineering</h2>
-        <div class="meta">Data Systems • Manager: Olivia Smith</div>
-        <div class="skills">
-            <span class="tag">Python</span><span class="tag">SQL</span>
-            <span class="tag">Spark</span><span class="tag">Big Data</span>
         </div>
-        <div class="actions">
-            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
-            <a href="#" class="schedule">Schedule</a>
-        </div>        
     </div>
 
-    <!-- AI -->
-    <div class="card" data-name="ai engineering" data-manager="noah brown" data-skills="machine learning ai python tensorflow">
-        <h2>AI Engineering</h2>
-        <div class="meta">AI Systems • Manager: Noah Brown</div>
+    <!-- The Codebreakers -->
+    <div class="card" data-name="the codebreakers" data-manager="william cooper" data-skills="cybersecurity ethical hacking encryption (aes, rsa) ssl/tls" data-dept="xtv_web">
+        <h2>The Codebreakers</h2>
+        <div class="meta">xTV_Web • Lead: William Cooper</div>
         <div class="skills">
-            <span class="tag">Machine Learning</span><span class="tag">AI</span>
-            <span class="tag">Python</span><span class="tag">TensorFlow</span>
+            <span class="tag">Cybersecurity</span><span class="tag">Ethical Hacking</span><span class="tag">Encryption (AES, RSA)</span><span class="tag">SSL/TLS</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Encryption Squad</span>
+            <div class="flow">Encryption Logic</div>
         </div>
         <div class="actions">
             <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
             <a href="#" class="schedule">Schedule</a>
-        </div>        
+        </div>
     </div>
 
-    <!-- Security -->
-    <div class="card" data-name="security engineering" data-manager="ava wilson" data-skills="cybersecurity encryption network security">
-        <h2>Security Engineering</h2>
-        <div class="meta">Cyber Security • Manager: Ava Wilson</div>
+    <!-- DevOps Dynasty -->
+    <div class="card" data-name="devops dynasty" data-manager="isabella ross" data-skills="kubernetes terraform ansible ci/cd" data-dept="xtv_web">
+        <h2>DevOps Dynasty</h2>
+        <div class="meta">xTV_Web • Lead: Isabella Ross</div>
         <div class="skills">
-            <span class="tag">Cybersecurity</span><span class="tag">Encryption</span>
-            <span class="tag">Network Security</span>
+            <span class="tag">Kubernetes</span><span class="tag">Terraform</span><span class="tag">Ansible</span><span class="tag">CI/CD</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ Code Warriors</span>
+            <div class="flow">CI/CD Infrastructure</div>
         </div>
         <div class="actions">
             <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
             <a href="#" class="schedule">Schedule</a>
-        </div>        
+        </div>
     </div>
 
-    <!-- Backend -->
-    <div class="card" data-name="backend engineering" data-manager="ethan davis" data-skills="java spring api microservices">
-        <h2>Backend Engineering</h2>
-        <div class="meta">Services • Manager: Ethan Davis</div>
+    <!-- Byte Force -->
+    <div class="card" data-name="byte force" data-manager="elijah parker" data-skills="aws lambda api gateway microservices graphql" data-dept="xtv_web">
+        <h2>Byte Force</h2>
+        <div class="meta">xTV_Web • Lead: Elijah Parker</div>
         <div class="skills">
-            <span class="tag">Java</span><span class="tag">Spring</span>
-            <span class="tag">API</span><span class="tag">Microservices</span>
+            <span class="tag">AWS Lambda</span><span class="tag">API Gateway</span><span class="tag">Microservices</span><span class="tag">GraphQL</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ API Avengers</span>
+            <div class="flow">Cloud Hosting Services</div>
         </div>
         <div class="actions">
             <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
             <a href="#" class="schedule">Schedule</a>
-        </div>        
+        </div>
     </div>
 
-    <!-- Frontend -->
-    <div class="card" data-name="frontend engineering" data-manager="mia taylor" data-skills="html css javascript react ui">
-        <h2>Frontend Engineering</h2>
-        <div class="meta">User Interfaces • Manager: Mia Taylor</div>
+    <!-- The Cloud Architects -->
+    <div class="card" data-name="the cloud architects" data-manager="ava sullivan" data-skills="kubernetes istio terraform aws/gcp/azure" data-dept="xtv_web">
+        <h2>The Cloud Architects</h2>
+        <div class="meta">xTV_Web • Lead: Ava Sullivan</div>
         <div class="skills">
-            <span class="tag">HTML</span><span class="tag">CSS</span>
-            <span class="tag">JavaScript</span><span class="tag">React</span>
+            <span class="tag">Kubernetes</span><span class="tag">Istio</span><span class="tag">Terraform</span><span class="tag">AWS/GCP/Azure</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ Byte Force, Cache Me Outside</span>
+            <div class="flow">Service Orchestration</div>
         </div>
         <div class="actions">
             <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
             <a href="#" class="schedule">Schedule</a>
-        </div>        
+        </div>
+    </div>
+
+    <!-- Full Stack Ninjas -->
+    <div class="card" data-name="full stack ninjas" data-manager="noah campbell" data-skills="react node.js typescript graphql" data-dept="xtv_web">
+        <h2>Full Stack Ninjas</h2>
+        <div class="meta">xTV_Web • Lead: Noah Campbell</div>
+        <div class="skills">
+            <span class="tag">React</span><span class="tag">Node.js</span><span class="tag">TypeScript</span><span class="tag">GraphQL</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The API Explorers</span>
+            <div class="flow">Frontend Design</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Error Handlers -->
+    <div class="card" data-name="the error handlers" data-manager="mia henderson" data-skills="logging (elk, splunk) apm (datadog, new relic) exception handling" data-dept="xtv_web">
+        <h2>The Error Handlers</h2>
+        <div class="meta">xTV_Web • Lead: Mia Henderson</div>
+        <div class="skills">
+            <span class="tag">Logging (ELK, Splunk)</span><span class="tag">APM (Datadog, New Relic)</span><span class="tag">Exception Handling</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Debuggers</span>
+            <div class="flow">Error Logging Services</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- Stack Overflow Survivors -->
+    <div class="card" data-name="stack overflow survivors" data-manager="lucas foster" data-skills="technical documentation knowledge sharing confluence ai bots" data-dept="xtv_web">
+        <h2>Stack Overflow Survivors</h2>
+        <div class="meta">xTV_Web • Lead: Lucas Foster</div>
+        <div class="skills">
+            <span class="tag">Technical Documentation</span><span class="tag">Knowledge Sharing</span><span class="tag">Confluence</span><span class="tag">AI Bots</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Scrum Lords</span>
+            <div class="flow">Best Practices Sharing</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Binary Beasts -->
+    <div class="card" data-name="the binary beasts" data-manager="charlotte murphy" data-skills="c/c++ data structures parallel computing gpu programming" data-dept="xtv_web">
+        <h2>The Binary Beasts</h2>
+        <div class="meta">xTV_Web • Lead: Charlotte Murphy</div>
+        <div class="skills">
+            <span class="tag">C/C++</span><span class="tag">Data Structures</span><span class="tag">Parallel Computing</span><span class="tag">GPU Programming</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Algorithm Alliance</span>
+            <div class="flow">Data Processing</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- API Avengers -->
+    <div class="card" data-name="api avengers" data-manager="henry ward" data-skills="api security (oauth, jwt) postman openapi/swagger rest" data-dept="xtv_web">
+        <h2>API Avengers</h2>
+        <div class="meta">xTV_Web • Lead: Henry Ward</div>
+        <div class="skills">
+            <span class="tag">API Security (OAuth, JWT)</span><span class="tag">Postman</span><span class="tag">OpenAPI/Swagger</span><span class="tag">REST</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Dev Dragons</span>
+            <div class="flow">Secure API Development</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Algorithm Alliance -->
+    <div class="card" data-name="the algorithm alliance" data-manager="amelia brooks" data-skills="machine learning data science (pandas, numpy, scikit-learn)" data-dept="xtv_web">
+        <h2>The Algorithm Alliance</h2>
+        <div class="meta">xTV_Web • Lead: Amelia Brooks</div>
+        <div class="skills">
+            <span class="tag">Machine Learning</span><span class="tag">Data Science (Pandas, NumPy, Scikit-learn)</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Codebreakers</span>
+            <div class="flow">Advanced Algorithm Support</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- Data Wranglers -->
+    <div class="card" data-name="data wranglers" data-manager="alexander perry" data-skills="sql nosql big data (hadoop, spark, kafka) python" data-dept="native tvs">
+        <h2>Data Wranglers</h2>
+        <div class="meta">Native TVs • Lead: Alexander Perry</div>
+        <div class="skills">
+            <span class="tag">SQL</span><span class="tag">NoSQL</span><span class="tag">Big Data (Hadoop, Spark, Kafka)</span><span class="tag">Python</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Bit Manipulators</span>
+            <div class="flow">User Data Insights</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Sprint Kings -->
+    <div class="card" data-name="the sprint kings" data-manager="evelyn hughes" data-skills="agile methodologies jira velocity metrics sprint planning" data-dept="native tvs">
+        <h2>The Sprint Kings</h2>
+        <div class="meta">Native TVs • Lead: Evelyn Hughes</div>
+        <div class="skills">
+            <span class="tag">Agile methodologies</span><span class="tag">Jira</span><span class="tag">Velocity Metrics</span><span class="tag">Sprint Planning</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Agile Alchemists</span>
+            <div class="flow">Sprint Planning</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- Exception Catchers -->
+    <div class="card" data-name="exception catchers" data-manager="daniel scott" data-skills="fault tolerance failover strategies incident response sre" data-dept="native tvs">
+        <h2>Exception Catchers</h2>
+        <div class="meta">Native TVs • Lead: Daniel Scott</div>
+        <div class="skills">
+            <span class="tag">Fault Tolerance</span><span class="tag">Failover Strategies</span><span class="tag">Incident Response</span><span class="tag">SRE</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Debuggers</span>
+            <div class="flow">Critical Fixes</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- Code Monkeys -->
+    <div class="card" data-name="code monkeys" data-manager="harper lewis" data-skills="git hotfix management patch deployment bash" data-dept="native tvs">
+        <h2>Code Monkeys</h2>
+        <div class="meta">Native TVs • Lead: Harper Lewis</div>
+        <div class="skills">
+            <span class="tag">Git</span><span class="tag">Hotfix Management</span><span class="tag">Patch Deployment</span><span class="tag">Bash</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Version Controllers</span>
+            <div class="flow">Patch Management</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Compile Crew -->
+    <div class="card" data-name="the compile crew" data-manager="matthew reed" data-skills="build systems (bazel, cmake, make) compiler optimization" data-dept="native tvs">
+        <h2>The Compile Crew</h2>
+        <div class="meta">Native TVs • Lead: Matthew Reed</div>
+        <div class="skills">
+            <span class="tag">Build Systems (Bazel, CMake, Make)</span><span class="tag">Compiler Optimization</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Bit Manipulators</span>
+            <div class="flow">Code Base Management</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- Git Good -->
+    <div class="card" data-name="git good" data-manager="scarlett edwards" data-skills="git gitops merge strategies branching models" data-dept="native tvs">
+        <h2>Git Good</h2>
+        <div class="meta">Native TVs • Lead: Scarlett Edwards</div>
+        <div class="skills">
+            <span class="tag">Git</span><span class="tag">GitOps</span><span class="tag">Merge Strategies</span><span class="tag">Branching Models</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Version Controllers</span>
+            <div class="flow">Automated Merging</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The CI/CD Squad -->
+    <div class="card" data-name="the ci/cd squad" data-manager="jack turner" data-skills="jenkins github actions gitops terraform" data-dept="native tvs">
+        <h2>The CI/CD Squad</h2>
+        <div class="meta">Native TVs • Lead: Jack Turner</div>
+        <div class="skills">
+            <span class="tag">Jenkins</span><span class="tag">GitHub Actions</span><span class="tag">GitOps</span><span class="tag">Terraform</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ Syntax Squad</span>
+            <div class="flow">Deployment Rollback Support</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- Bug Exterminators -->
+    <div class="card" data-name="bug exterminators" data-manager="lily phillips" data-skills="test automation (selenium, cypress) load testing (jmeter)" data-dept="native tvs">
+        <h2>Bug Exterminators</h2>
+        <div class="meta">Native TVs • Lead: Lily Phillips</div>
+        <div class="skills">
+            <span class="tag">Test Automation (Selenium, Cypress)</span><span class="tag">Load Testing (JMeter)</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Debuggers</span>
+            <div class="flow">Performance Tuning</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Agile Alchemists -->
+    <div class="card" data-name="the agile alchemists" data-manager="samuel morgan" data-skills="agile transformation safe jira value stream mapping" data-dept="native tvs">
+        <h2>The Agile Alchemists</h2>
+        <div class="meta">Native TVs • Lead: Samuel Morgan</div>
+        <div class="skills">
+            <span class="tag">Agile Transformation</span><span class="tag">SAFe</span><span class="tag">Jira</span><span class="tag">Value Stream Mapping</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ Stack Overflow Survivors</span>
+            <div class="flow">Agile Adoption Coaching</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Hotfix Heroes -->
+    <div class="card" data-name="the hotfix heroes" data-manager="grace patterson" data-skills="real-time debugging rollback automation patch deployment" data-dept="native tvs">
+        <h2>The Hotfix Heroes</h2>
+        <div class="meta">Native TVs • Lead: Grace Patterson</div>
+        <div class="skills">
+            <span class="tag">Real-time Debugging</span><span class="tag">Rollback Automation</span><span class="tag">Patch Deployment</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The CI/CD Squad, Code Monkeys</span>
+            <div class="flow">Emergency Fixes</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- Cache Me Outside -->
+    <div class="card" data-name="cache me outside" data-manager="owen barnes" data-skills="redis memcached cdn caching cache invalidation strategies" data-dept="mobile">
+        <h2>Cache Me Outside</h2>
+        <div class="meta">Mobile • Lead: Owen Barnes</div>
+        <div class="skills">
+            <span class="tag">Redis</span><span class="tag">Memcached</span><span class="tag">CDN Caching</span><span class="tag">Cache Invalidation Strategies</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The UX Wizards</span>
+            <div class="flow">Distributed Caching Services</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Scrum Lords -->
+    <div class="card" data-name="the scrum lords" data-manager="chloe hall" data-skills="scrum mastery agile coaching jira retrospective analysis" data-dept="mobile">
+        <h2>The Scrum Lords</h2>
+        <div class="meta">Mobile • Lead: Chloe Hall</div>
+        <div class="skills">
+            <span class="tag">Scrum Mastery</span><span class="tag">Agile Coaching</span><span class="tag">Jira</span><span class="tag">Retrospective Analysis</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Sprint Kings, Agile Avengers</span>
+            <div class="flow">Agile Process Coordination</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The 404 Not Found -->
+    <div class="card" data-name="the 404 not found" data-manager="nathan fisher" data-skills="incident response http error handling observability" data-dept="mobile">
+        <h2>The 404 Not Found</h2>
+        <div class="meta">Mobile • Lead: Nathan Fisher</div>
+        <div class="skills">
+            <span class="tag">Incident Response</span><span class="tag">HTTP Error Handling</span><span class="tag">Observability</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Scrum Lords</span>
+            <div class="flow">Repository Management</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Version Controllers -->
+    <div class="card" data-name="the version controllers" data-manager="zoey stevens" data-skills="git repository management devsecops gitops" data-dept="mobile">
+        <h2>The Version Controllers</h2>
+        <div class="meta">Mobile • Lead: Zoey Stevens</div>
+        <div class="skills">
+            <span class="tag">Git</span><span class="tag">Repository Management</span><span class="tag">DevSecOps</span><span class="tag">GitOps</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Compile Crew, The 404 Not Found</span>
+            <div class="flow">Branching Strategy</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- DevNull Pioneers -->
+    <div class="card" data-name="devnull pioneers" data-manager="caleb bryant" data-skills="logging systems observability (grafana, prometheus)" data-dept="mobile">
+        <h2>DevNull Pioneers</h2>
+        <div class="meta">Mobile • Lead: Caleb Bryant</div>
+        <div class="skills">
+            <span class="tag">Logging Systems</span><span class="tag">Observability (Grafana, Prometheus)</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The API Explorers</span>
+            <div class="flow">API Documentation</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Code Refactors -->
+    <div class="card" data-name="the code refactors" data-manager="hannah simmons" data-skills="code cleanup tech debt management sonarqube refactoring" data-dept="mobile">
+        <h2>The Code Refactors</h2>
+        <div class="meta">Mobile • Lead: Hannah Simmons</div>
+        <div class="skills">
+            <span class="tag">Code Cleanup</span><span class="tag">Tech Debt Management</span><span class="tag">SonarQube</span><span class="tag">Refactoring</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ Bug Exterminators</span>
+            <div class="flow">Legacy Code Cleanup</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Jenkins Juggernauts -->
+    <div class="card" data-name="the jenkins juggernauts" data-manager="isaac jenkins" data-skills="ci/cd pipelines jenkins scripting kubernetes yaml" data-dept="mobile">
+        <h2>The Jenkins Juggernauts</h2>
+        <div class="meta">Mobile • Lead: Isaac Jenkins</div>
+        <div class="skills">
+            <span class="tag">CI/CD Pipelines</span><span class="tag">Jenkins Scripting</span><span class="tag">Kubernetes</span><span class="tag">YAML</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ DevOps Dynasty, Git Good</span>
+            <div class="flow">Automated Testing</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- Infinite Loopers -->
+    <div class="card" data-name="infinite loopers" data-manager="madison clarke" data-skills="frontend optimization performance metrics javascript css" data-dept="mobile">
+        <h2>Infinite Loopers</h2>
+        <div class="meta">Mobile • Lead: Madison Clarke</div>
+        <div class="skills">
+            <span class="tag">Frontend Optimization</span><span class="tag">Performance Metrics</span><span class="tag">JavaScript</span><span class="tag">CSS</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Feature Crafters</span>
+            <div class="flow">UI Responsiveness</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Feature Crafters -->
+    <div class="card" data-name="the feature crafters" data-manager="gabriel coleman" data-skills="a/b testing feature flagging frontend frameworks" data-dept="mobile">
+        <h2>The Feature Crafters</h2>
+        <div class="meta">Mobile • Lead: Gabriel Coleman</div>
+        <div class="skills">
+            <span class="tag">A/B Testing</span><span class="tag">Feature Flagging</span><span class="tag">Frontend Frameworks</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Error Handlers, Syntax Squad</span>
+            <div class="flow">Design Feedback</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Bit Manipulators -->
+    <div class="card" data-name="the bit manipulators" data-manager="riley sanders" data-skills="bitwise operations low-level optimization assembly c++" data-dept="mobile">
+        <h2>The Bit Manipulators</h2>
+        <div class="meta">Mobile • Lead: Riley Sanders</div>
+        <div class="skills">
+            <span class="tag">Bitwise Operations</span><span class="tag">Low-level Optimization</span><span class="tag">Assembly</span><span class="tag">C++</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Binary Beasts</span>
+            <div class="flow">ETL Pipelines</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- Kernel Crushers -->
+    <div class="card" data-name="kernel crushers" data-manager="leo watson" data-skills="linux kernel development system performance rust c" data-dept="mobile">
+        <h2>Kernel Crushers</h2>
+        <div class="meta">Mobile • Lead: Leo Watson</div>
+        <div class="skills">
+            <span class="tag">Linux Kernel Development</span><span class="tag">System Performance</span><span class="tag">Rust</span><span class="tag">C</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The API Avengers</span>
+            <div class="flow">Low-Level Optimization</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Git Masters -->
+    <div class="card" data-name="the git masters" data-manager="victoria price" data-skills="gitops repository scaling git automation" data-dept="mobile">
+        <h2>The Git Masters</h2>
+        <div class="meta">Mobile • Lead: Victoria Price</div>
+        <div class="skills">
+            <span class="tag">GitOps</span><span class="tag">Repository Scaling</span><span class="tag">Git Automation</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Version Controllers</span>
+            <div class="flow">Best Practices</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The API Explorers -->
+    <div class="card" data-name="the api explorers" data-manager="julian bell" data-skills="api testing (postman, swagger) api gateway management" data-dept="mobile">
+        <h2>The API Explorers</h2>
+        <div class="meta">Mobile • Lead: Julian Bell</div>
+        <div class="skills">
+            <span class="tag">API Testing (Postman, Swagger)</span><span class="tag">API Gateway Management</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ Full Stack Ninjas</span>
+            <div class="flow">Secure Communication</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Lambda Legends -->
+    <div class="card" data-name="the lambda legends" data-manager="layla russell" data-skills="serverless computing aws lambda node.js python" data-dept="reliability_tool">
+        <h2>The Lambda Legends</h2>
+        <div class="meta">Reliability_Tool • Lead: Layla Russell</div>
+        <div class="skills">
+            <span class="tag">Serverless Computing</span><span class="tag">AWS Lambda</span><span class="tag">Node.js</span><span class="tag">Python</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ API Avengers</span>
+            <div class="flow">Serverless Functions</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Encryption Squad -->
+    <div class="card" data-name="the encryption squad" data-manager="ethan griffin" data-skills="cryptography (aes, rsa, sha-256) security audits" data-dept="reliability_tool">
+        <h2>The Encryption Squad</h2>
+        <div class="meta">Reliability_Tool • Lead: Ethan Griffin</div>
+        <div class="skills">
+            <span class="tag">Cryptography (AES, RSA, SHA-256)</span><span class="tag">Security Audits</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ API Avengers, The API Explorers</span>
+            <div class="flow">Cryptographic Security</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The UX Wizards -->
+    <div class="card" data-name="the ux wizards" data-manager="aurora cooper" data-skills="ui/ux design figma adobe xd usability testing" data-dept="reliability_tool">
+        <h2>The UX Wizards</h2>
+        <div class="meta">Reliability_Tool • Lead: Aurora Cooper</div>
+        <div class="skills">
+            <span class="tag">UI/UX Design</span><span class="tag">Figma</span><span class="tag">Adobe XD</span><span class="tag">Usability Testing</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ Full Stack Ninjas, Feature Crafters</span>
+            <div class="flow">UI Components</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Hackathon Hustlers -->
+    <div class="card" data-name="the hackathon hustlers" data-manager="dylan spencer" data-skills="rapid prototyping mvp development no-code tools" data-dept="reliability_tool">
+        <h2>The Hackathon Hustlers</h2>
+        <div class="meta">Reliability_Tool • Lead: Dylan Spencer</div>
+        <div class="skills">
+            <span class="tag">Rapid Prototyping</span><span class="tag">MVP Development</span><span class="tag">No-Code Tools</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The UX Wizards</span>
+            <div class="flow">Rapid Prototyping</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Frontend Phantoms -->
+    <div class="card" data-name="the frontend phantoms" data-manager="stella martinez" data-skills="frontend frameworks (react, vue, angular) performance optimization" data-dept="reliability_tool">
+        <h2>The Frontend Phantoms</h2>
+        <div class="meta">Reliability_Tool • Lead: Stella Martinez</div>
+        <div class="skills">
+            <span class="tag">Frontend Frameworks (React, Vue, Angular)</span><span class="tag">Performance Optimization</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The API Explorers</span>
+            <div class="flow">UI Enhancements</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Dev Dragons -->
+    <div class="card" data-name="the dev dragons" data-manager="levi bishop" data-skills="api development sdk development plugin architecture" data-dept="arch">
+        <h2>The Dev Dragons</h2>
+        <div class="meta">Arch • Lead: Levi Bishop</div>
+        <div class="skills">
+            <span class="tag">API Development</span><span class="tag">SDK Development</span><span class="tag">Plugin Architecture</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Feature Crafters</span>
+            <div class="flow">API Integration</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Microservice Mavericks -->
+    <div class="card" data-name="the microservice mavericks" data-manager="eleanor freeman" data-skills="service mesh (istio, envoy) api gateway grpc" data-dept="arch">
+        <h2>The Microservice Mavericks</h2>
+        <div class="meta">Arch • Lead: Eleanor Freeman</div>
+        <div class="skills">
+            <span class="tag">Service Mesh (Istio, Envoy)</span><span class="tag">API Gateway</span><span class="tag">gRPC</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ The Code Refactors, Lambda Legends</span>
+            <div class="flow">Service Scaling</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
+    </div>
+
+    <!-- The Quantum Coders -->
+    <div class="card" data-name="the quantum coders" data-manager="hudson ford" data-skills="quantum computing qiskit parallel computing" data-dept="programme">
+        <h2>The Quantum Coders</h2>
+        <div class="meta">Programme • Lead: Hudson Ford</div>
+        <div class="skills">
+            <span class="tag">Quantum Computing</span><span class="tag">Qiskit</span><span class="tag">Parallel Computing</span>
+        </div>
+        <div class="dependencies">
+            <span class="downstream">↓ Kernel Crushers</span>
+            <div class="flow">High-Performance Computing</div>
+        </div>
+        <div class="actions">
+            <a href="{% url 'messaging:inbox' %}" class="email">Email</a>
+            <a href="#" class="schedule">Schedule</a>
+        </div>
     </div>
 
 </div>
@@ -293,11 +937,13 @@ function searchTeams() {
         const name = card.dataset.name;
         const manager = card.dataset.manager;
         const skills = card.dataset.skills;
+        const dept = card.dataset.dept || "";
 
         if (
             name.includes(input) ||
             manager.includes(input) ||
-            skills.includes(input)
+            skills.includes(input) ||
+            dept.includes(input)
         ) {
             card.style.display = "block";
         } else {
