@@ -394,6 +394,139 @@ input {
   background: var(--surface-soft);
 }
 
+/* Teams page */
+.teams-page .search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.teams-page .search-bar input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+}
+
+.teams-page .search-bar button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.teams-page .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.teams-page .card {
+  background: white;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  transition: 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+}
+
+.teams-page .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.teams-page .card h2 {
+  margin-bottom: 6px;
+  font-size: 20px;
+}
+
+.teams-page .meta {
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.teams-page .skills {
+  margin: 10px 0;
+}
+
+.teams-page .tag {
+  display: inline-block;
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin: 4px;
+}
+
+.teams-page .dependencies {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.teams-page .downstream {
+  color: #2563eb;
+}
+
+.teams-page .upstream-dep {
+  color: #16a34a;
+}
+
+.teams-page .flow {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #475569;
+}
+
+.teams-page .actions {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.teams-page .actions a {
+  flex: 1;
+  text-align: center;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.teams-page .email {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: white;
+}
+
+.teams-page .email:hover {
+  filter: brightness(1.05);
+}
+
+.teams-page .schedule {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+}
+
+.teams-page .schedule:hover {
+  filter: brightness(1.05);
+}
+
+.teams-page .no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: #64748b;
+}
+
 @media (max-width: 980px) {
   .app-shell {
     grid-template-columns: 1fr;
