@@ -34,3 +34,7 @@ def department_detail(request, pk):
     return render(
         request, "organisation/department_detail.html", {"department": department}
     )
+
+
+def teams(request):
+    return render(request, "organisation/teams.html")
