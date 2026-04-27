@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "organisation",
     "messaging.apps.MessagingConfig",
+    "schedule.apps.ScheduleConfig",
 ]
 
 MIDDLEWARE = [

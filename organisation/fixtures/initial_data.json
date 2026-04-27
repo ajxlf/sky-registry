@@ -1,132 +1,42 @@
 [
-    {
-      "model": "organisation.department",
-      "pk": 1,
-      "fields": {
-        "name": "Mobile Engineering",
-        "leader": "Alex Smith",
-        "specialisation": "Builds and maintains mobile applications across iOS and Android.",
-        "created_at": "2026-04-15T00:00:00Z"
-      }
-    },
-    {
-      "model": "organisation.department",
-      "pk": 2,
-      "fields": {
-        "name": "Platform & Tools",
-        "leader": "Morgan Reed",
-        "specialisation": "Supports internal tooling, CI/CD, and developer workflows.",
-        "created_at": "2026-04-15T00:00:00Z"
-      }
-    },
-    {
-      "model": "organisation.department",
-      "pk": 3,
-      "fields": {
-        "name": "xTV Web",
-        "leader": "Sam Carter",
-        "specialisation": "Delivers web-based TV platform experiences and frontend systems.",
-        "created_at": "2026-04-15T00:00:00Z"
-      }
-    },
-    {
-      "model": "organisation.team",
-      "pk": 1,
-      "fields": {
-        "name": "Mobile Player",
-        "manager": "Priya Shah",
-        "status": "Active",
-        "department": 1
-      }
-    },
-    {
-      "model": "organisation.team",
-      "pk": 2,
-      "fields": {
-        "name": "iOS Client",
-        "manager": "Jordan Blake",
-        "status": "Active",
-        "department": 1
-      }
-    },
-    {
-      "model": "organisation.team",
-      "pk": 3,
-      "fields": {
-        "name": "Build Systems",
-        "manager": "Chris Young",
-        "status": "Active",
-        "department": 2
-      }
-    },
-    {
-      "model": "organisation.team",
-      "pk": 4,
-      "fields": {
-        "name": "Developer Experience",
-        "manager": "Nina Patel",
-        "status": "Active",
-        "department": 2
-      }
-    },
-    {
-      "model": "organisation.team",
-      "pk": 5,
-      "fields": {
-        "name": "Playback UI",
-        "manager": "Leah James",
-        "status": "Active",
-        "department": 3
-      }
-    },
-    {
-      "model": "organisation.team",
-      "pk": 6,
-      "fields": {
-        "name": "Web Platform",
-        "manager": "Tom Fisher",
-        "status": "Active",
-        "department": 3
-      }
-    },
-    {
-      "model": "organisation.dependency",
-      "pk": 1,
-      "fields": {
-        "description": "Mobile Player → Backend APIs",
-        "department": 1
-      }
-    },
-    {
-      "model": "organisation.dependency",
-      "pk": 2,
-      "fields": {
-        "description": "iOS Client → Mobile Player",
-        "department": 1
-      }
-    },
-    {
-      "model": "organisation.dependency",
-      "pk": 3,
-      "fields": {
-        "description": "Developer Experience → Build Systems",
-        "department": 2
-      }
-    },
-    {
-      "model": "organisation.dependency",
-      "pk": 4,
-      "fields": {
-        "description": "Playback UI → Web Platform",
-        "department": 3
-      }
-    },
-    {
-      "model": "organisation.dependency",
-      "pk": 5,
-      "fields": {
-        "description": "Web Platform → Backend APIs",
-        "department": 3
-      }
-    }
-  ]
+  {"model":"organisation.department","pk":1,"fields":{"name":"xTV Web","leader":"Sam Carter","specialisation":"Delivers web-based TV platform experiences and frontend systems.","created_at":"2026-04-15T00:00:00Z"}},
+  {"model":"organisation.department","pk":2,"fields":{"name":"Native TVs","leader":"Morgan Reed","specialisation":"Builds native TV application experiences across smart TV platforms.","created_at":"2026-04-15T00:00:00Z"}},
+  {"model":"organisation.department","pk":3,"fields":{"name":"Mobile","leader":"Alex Smith","specialisation":"Builds and maintains mobile applications across iOS and Android.","created_at":"2026-04-15T00:00:00Z"}},
+  {"model":"organisation.department","pk":4,"fields":{"name":"Reliability & Tooling","leader":"Jordan Blake","specialisation":"Supports internal tooling, CI/CD, reliability engineering and developer workflows.","created_at":"2026-04-15T00:00:00Z"}},
+
+  {"model":"organisation.team","pk":1,"fields":{"name":"Code Warriors","manager":"Olivia Carter","status":"Active","skills":"AWS/GCP, Terraform, Kubernetes, CI/CD","department":1}},
+  {"model":"organisation.team","pk":2,"fields":{"name":"The Debuggers","manager":"James Bennett","status":"Active","skills":"Debugging Tools (GDB/LLDB), Stack Traces, Log Analysis, Python","department":1}},
+  {"model":"organisation.team","pk":3,"fields":{"name":"Bit Masters","manager":"Emma Richardson","status":"Active","skills":"Cryptography, Penetration Testing, Security Compliance (ISO 27001)","department":1}},
+  {"model":"organisation.team","pk":4,"fields":{"name":"Agile Avengers","manager":"Benjamin Hayes","status":"Active","skills":"Agile Frameworks (Scrum/SAFe/Kanban), Jira, Miro, Confluence","department":1}},
+  {"model":"organisation.team","pk":5,"fields":{"name":"API Avengers","manager":"Henry Ward","status":"Active","skills":"API Security (OAuth/JWT), Postman, OpenAPI/Swagger, REST","department":1}},
+  {"model":"organisation.team","pk":6,"fields":{"name":"Full Stack Ninjas","manager":"Noah Campbell","status":"Active","skills":"React, Node.js, TypeScript, GraphQL","department":1}},
+  {"model":"organisation.team","pk":7,"fields":{"name":"Data Wranglers","manager":"Alexander Perry","status":"Active","skills":"SQL, NoSQL, Big Data (Hadoop/Spark/Kafka), Python","department":2}},
+  {"model":"organisation.team","pk":8,"fields":{"name":"The Sprint Kings","manager":"Evelyn Hughes","status":"Active","skills":"Agile Methodologies, Jira, Velocity Metrics, Sprint Planning","department":2}},
+  {"model":"organisation.team","pk":9,"fields":{"name":"Exception Catchers","manager":"Daniel Scott","status":"Active","skills":"Fault Tolerance, Failover Strategies, Incident Response, SRE","department":2}},
+  {"model":"organisation.team","pk":10,"fields":{"name":"Git Good","manager":"Scarlett Edwards","status":"Active","skills":"Git, GitOps, Merge Strategies, Branching Models","department":2}},
+  {"model":"organisation.team","pk":11,"fields":{"name":"Cache Me Outside","manager":"Owen Barnes","status":"Active","skills":"Redis, Memcached, CDN Caching, Cache Invalidation","department":3}},
+  {"model":"organisation.team","pk":12,"fields":{"name":"The Scrum Lords","manager":"Chloe Hall","status":"Active","skills":"Scrum Mastery, Agile Coaching, Jira, Retrospective Analysis","department":3}},
+  {"model":"organisation.team","pk":13,"fields":{"name":"The Version Controllers","manager":"Zoey Stevens","status":"Active","skills":"Git, Repository Management, DevSecOps, GitOps","department":3}},
+  {"model":"organisation.team","pk":14,"fields":{"name":"Infinite Loopers","manager":"Madison Clarke","status":"Active","skills":"Frontend Optimization, Performance Metrics, JavaScript, CSS","department":3}},
+  {"model":"organisation.team","pk":15,"fields":{"name":"The Lambda Legends","manager":"Layla Russell","status":"Active","skills":"Serverless Computing, AWS Lambda, Node.js, Python","department":4}},
+  {"model":"organisation.team","pk":16,"fields":{"name":"The Encryption Squad","manager":"Ethan Griffin","status":"Active","skills":"Cryptography (AES/RSA/SHA-256), Security Audits","department":4}},
+  {"model":"organisation.team","pk":17,"fields":{"name":"The UX Wizards","manager":"Aurora Cooper","status":"Active","skills":"UI/UX Design, Figma, Adobe XD, Usability Testing","department":4}},
+  {"model":"organisation.team","pk":18,"fields":{"name":"DevOps Dynasty","manager":"Isabella Ross","status":"Active","skills":"Kubernetes, Terraform, Ansible, CI/CD","department":4}},
+
+  {"model":"organisation.dependency","pk":1,"fields":{"upstream_team":1,"downstream_team":2,"flow_description":"Infrastructure Support"}},
+  {"model":"organisation.dependency","pk":2,"fields":{"upstream_team":2,"downstream_team":3,"flow_description":"Bug Resolution"}},
+  {"model":"organisation.dependency","pk":3,"fields":{"upstream_team":3,"downstream_team":5,"flow_description":"Security Fixes"}},
+  {"model":"organisation.dependency","pk":4,"fields":{"upstream_team":5,"downstream_team":6,"flow_description":"Secure API Development"}},
+  {"model":"organisation.dependency","pk":5,"fields":{"upstream_team":4,"downstream_team":8,"flow_description":"Agile Coaching"}},
+  {"model":"organisation.dependency","pk":6,"fields":{"upstream_team":7,"downstream_team":13,"flow_description":"User Data Insights"}},
+  {"model":"organisation.dependency","pk":7,"fields":{"upstream_team":8,"downstream_team":12,"flow_description":"Sprint Planning"}},
+  {"model":"organisation.dependency","pk":8,"fields":{"upstream_team":9,"downstream_team":2,"flow_description":"Critical Fixes"}},
+  {"model":"organisation.dependency","pk":9,"fields":{"upstream_team":10,"downstream_team":13,"flow_description":"Automated Merging"}},
+  {"model":"organisation.dependency","pk":10,"fields":{"upstream_team":11,"downstream_team":17,"flow_description":"Distributed Caching Services"}},
+  {"model":"organisation.dependency","pk":11,"fields":{"upstream_team":12,"downstream_team":8,"flow_description":"Agile Process Coordination"}},
+  {"model":"organisation.dependency","pk":12,"fields":{"upstream_team":14,"downstream_team":6,"flow_description":"UI Responsiveness"}},
+  {"model":"organisation.dependency","pk":13,"fields":{"upstream_team":15,"downstream_team":5,"flow_description":"Serverless Functions"}},
+  {"model":"organisation.dependency","pk":14,"fields":{"upstream_team":16,"downstream_team":5,"flow_description":"Cryptographic Security"}},
+  {"model":"organisation.dependency","pk":15,"fields":{"upstream_team":17,"downstream_team":6,"flow_description":"UI Components"}},
+  {"model":"organisation.dependency","pk":16,"fields":{"upstream_team":18,"downstream_team":1,"flow_description":"CI/CD Infrastructure"}}
+]

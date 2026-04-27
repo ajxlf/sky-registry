@@ -62,8 +62,11 @@
 
     <h3 class="section-title">Dependencies</h3>
     <ul class="dependency-list">
-      {% for dependency in department.dependencies.all %}
-      <li class="dependency-list__item">{{ dependency.description }}</li>
+      {% for dependency in dependencies %}
+      <li class="dependency-list__item">
+        {{ dependency.upstream_team.name }} -> {{ dependency.downstream_team.name }}
+        {% if dependency.flow_description %} ({{ dependency.flow_description }}){% endif %}
+      </li>
       {% empty %}
       <li class="dependency-list__item">No dependencies recorded.</li>
       {% endfor %}

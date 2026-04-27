@@ -28,11 +28,11 @@ class Migration(migrations.Migration):
             name='Dependency',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('description', models.CharField(max_length=200)),
-                ('department', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='dependencies', to='organisation.department')),
+                ('flow_description', models.CharField(blank=True, help_text='Short description of what flows between these teams.', max_length=200)),
             ],
             options={
                 'ordering': ['id'],
+                'verbose_name_plural': 'dependencies',
             },
         ),
         migrations.CreateModel(
@@ -42,10 +42,21 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('manager', models.CharField(max_length=100)),
                 ('status', models.CharField(default='Active', max_length=20)),
+                ('skills', models.TextField(blank=True, help_text='Comma-separated list of skills, e.g. Python, AWS, Docker')),
                 ('department', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='teams', to='organisation.department')),
             ],
             options={
                 'ordering': ['name'],
             },
+        ),
+        migrations.AddField(
+            model_name='dependency',
+            name='downstream_team',
+            field=models.ForeignKey(help_text='The team being depended on (the arrow target).', on_delete=django.db.models.deletion.CASCADE, related_name='upstream_dependencies', to='organisation.team'),
+        ),
+        migrations.AddField(
+            model_name='dependency',
+            name='upstream_team',
+            field=models.ForeignKey(help_text='The team that depends on another (the arrow source).', on_delete=django.db.models.deletion.CASCADE, related_name='downstream_dependencies', to='organisation.team'),
         ),
     ]

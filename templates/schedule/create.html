@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Schedule Meeting | Sky Registry{% endblock %}
+{% block page_title %}Schedule{% endblock %}
+{% block page_subtitle %}Create and review upcoming team meetings{% endblock %}
+
+{% block content %}
+<div class="layout-grid">
+  <div class="card">
+    <div class="card__body">
+      <h3 class="section-title">New Meeting</h3>
+      <form method="post" class="search-form">
+        {% csrf_token %}
+        <div style="display:grid; gap:12px;">
+          {{ form.as_p }}
+        </div>
+        <button type="submit" class="button button--primary">Schedule meeting</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card__body">
+      <h3 class="section-title">Upcoming Meetings</h3>
+      {% if upcoming_meetings %}
+      <ul class="dependency-list">
+        {% for meeting in upcoming_meetings %}
+        <li class="dependency-list__item">
+          <strong>{{ meeting.title }}</strong>
+          {% if meeting.team %} - {{ meeting.team.name }}{% endif %}
+          <br />
+          {{ meeting.scheduled_for }} ({{ meeting.duration_minutes }} mins)
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <div class="empty-state">No meetings scheduled yet.</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+

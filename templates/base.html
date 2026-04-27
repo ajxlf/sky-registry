@@ -27,7 +27,12 @@
             Organisation
           </a>
 
-          <a href="#" class="sidebar-nav__link">Teams</a>
+          <a
+            href="{% url 'organisation:teams' %}"
+            class="sidebar-nav__link {% if '/teams/' in request.path %}sidebar-nav__link--active{% endif %}"
+          >
+            Teams
+          </a>
 
           <a
             href="{% url 'messaging:inbox' %}"
@@ -36,7 +41,12 @@
             Messages
           </a>
 
-          <a href="#" class="sidebar-nav__link">Schedule</a>
+          <a
+            href="{% url 'schedule:create' %}"
+            class="sidebar-nav__link {% if '/schedule/' in request.path %}sidebar-nav__link--active{% endif %}"
+          >
+            Schedule
+          </a>
           <a href="#" class="sidebar-nav__link">Reports</a>
         </nav>
       </aside>
