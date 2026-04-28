@@ -22,7 +22,7 @@
         <nav class="sidebar-nav">
           <a
             href="{% url 'organisation:department_list' %}"
-            class="sidebar-nav__link {% if request.path == '/' %}sidebar-nav__link--active{% endif %}"
+            class="sidebar-nav__link {% if request.path == '/' or 'department' in request.path %}sidebar-nav__link--active{% endif %}"
           >
             Organisation
           </a>
@@ -47,7 +47,12 @@
           >
             Schedule
           </a>
-          <a href="#" class="sidebar-nav__link">Reports</a>
+          <a
+            href="{% url 'reports:dashboard' %}"
+            class="sidebar-nav__link {% if '/reports/' in request.path %}sidebar-nav__link--active{% endif %}"
+          >
+            Reports
+          </a>
         </nav>
       </aside>
 
