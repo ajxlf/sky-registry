@@ -400,69 +400,84 @@ input {
   background: var(--surface-soft);
 }
 
-/* Teams page */
-.teams-page .search-bar {
+/* Teams page — shares .card, .card__body, .search-input, .button */
+.teams-page__search.search-form {
   display: flex;
-  gap: 10px;
-  margin-bottom: 25px;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  align-items: stretch;
 }
 
-.teams-page .search-bar input {
+.teams-page__search .search-input {
   flex: 1;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
-  font-size: 14px;
+  min-width: 0;
 }
 
-.teams-page .search-bar button {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 8px;
-  background: #2563eb;
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
+/* Teams gallery layout: flex-wrap is more reliably multi-column across browsers/layouts than auto-fill grids when the main pane is wide. */
+.teams-page {
+  width: 100%;
+  min-width: 0;
 }
 
-.teams-page .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+.teams-page__grid {
+  display: flex;
+  flex-flow: row wrap;
   gap: 20px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  align-items: stretch;
 }
 
-.teams-page .card {
-  background: white;
-  border-radius: 14px;
-  padding: 28px;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
-  transition: 0.25s ease;
+.team-card {
+  /* Gallery tiles: flex-grow 0 avoids a lone card stretching to full row width */
+  flex: 0 1 320px;
+  min-width: min(280px, 100%);
+  max-width: 100%;
+  /* Card interior */
   display: flex;
   flex-direction: column;
-  min-height: 260px;
+  min-height: 0;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
-.teams-page .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+.team-card:hover {
+  border-color: rgba(15, 108, 189, 0.35);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
 }
 
-.teams-page .card h2 {
-  margin-bottom: 6px;
-  font-size: 20px;
+/* Slightly tighter than default .card__body so the grid feels like the original teams layout */
+.team-card .card__body.team-card__body {
+  padding: 18px 20px;
 }
 
-.teams-page .meta {
-  color: #64748b;
-  font-size: 14px;
-  margin-bottom: 10px;
+.team-card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
-.teams-page .skills {
-  margin: 10px 0;
+.team-card .section-title.team-card__name {
+  margin: 0 0 6px;
+  font-size: 1.2rem;
 }
 
-.teams-page .tag {
+.team-card__meta {
+  margin: 0 0 var(--space-3);
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.team-card__skills {
+  margin: 8px 0;
+}
+
+.team-card__tag {
   display: inline-block;
   background: #e0f2fe;
   color: #0369a1;
@@ -472,13 +487,13 @@ input {
   margin: 4px;
 }
 
-.teams-page .dependencies {
-  margin-top: 10px;
-  font-size: 14px;
+.team-card__dependencies {
+  margin-top: 8px;
+  font-size: 0.875rem;
 }
 
 .teams-page .downstream {
-  color: #2563eb;
+  color: var(--primary);
 }
 
 .teams-page .upstream {
@@ -491,46 +506,22 @@ input {
   color: #475569;
 }
 
-.teams-page .actions {
+.team-card__actions {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   margin-top: auto;
-  padding-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
 }
 
-.teams-page .actions a {
+.team-card__action.button {
   flex: 1;
-  text-align: center;
-  padding: 12px 14px;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 14px;
-  text-decoration: none;
-  transition: 0.2s ease;
 }
 
-.teams-page .email {
-  background: linear-gradient(135deg, #0ea5e9, #0284c7);
-  color: white;
-}
-
-.teams-page .email:hover {
-  filter: brightness(1.05);
-}
-
-.teams-page .schedule {
-  background: linear-gradient(135deg, #22c55e, #16a34a);
-  color: white;
-}
-
-.teams-page .schedule:hover {
-  filter: brightness(1.05);
-}
-
-.teams-page .no-results {
+.teams-page__empty {
   text-align: center;
   padding: 60px 20px;
-  color: #64748b;
+  color: var(--text-muted);
 }
 
 @media (max-width: 980px) {

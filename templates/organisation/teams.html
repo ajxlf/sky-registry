@@ -8,28 +8,35 @@
 
 {% block content %}
 <div class="teams-page">
-<form method="get" class="search-bar">
-    <input type="text" name="q" value="{{ query }}" placeholder="Search team, skill, department or lead...">
-    <button type="submit">Search</button>
+<form method="get" class="search-form teams-page__search">
+    <input
+      type="text"
+      name="q"
+      value="{{ query }}"
+      placeholder="Search team, skill, department or lead..."
+      class="search-input"
+    />
+    <button type="submit" class="button button--primary button--small">Search</button>
 </form>
 
 {% if teams %}
-<div class="grid">
+<div class="teams-page__grid">
     {% for team in teams %}
-    <div class="card">
-        <h2>{{ team.name }}</h2>
-        <div class="meta">{{ team.department.name }} &bull; Lead: {{ team.manager }}</div>
+    <article class="card team-card">
+      <div class="card__body team-card__body">
+        <h3 class="section-title team-card__name">{{ team.name }}</h3>
+        <p class="team-card__meta">{{ team.department.name }} &bull; Lead: {{ team.manager }}</p>
 
         {% if team.skills %}
-        <div class="skills">
+        <div class="team-card__skills">
             {% for skill in team.skills_list %}
-            <span class="tag">{{ skill }}</span>
+            <span class="team-card__tag">{{ skill }}</span>
             {% endfor %}
         </div>
         {% endif %}
 
         {% if team.upstream_dependencies.all %}
-        <div class="dependencies">
+        <div class="team-card__dependencies">
             {% for dep in team.upstream_dependencies.all %}
             <div>
                 <span class="upstream">↑ {{ dep.upstream_team.name }}</span>
@@ -43,7 +50,7 @@
 
 
         {% if team.downstream_dependencies.all %}
-        <div class="dependencies">
+        <div class="team-card__dependencies">
             {% for dep in team.downstream_dependencies.all %}
             <div>
                 <span class="downstream">↓ {{ dep.downstream_team.name }}</span>
@@ -55,15 +62,16 @@
         </div>
         {% endif %}
 
-        <div class="actions">
-            <a href="{% url 'messaging:compose' %}?recipient_name={{ team.manager }}&subject=Re: {{ team.name }}" class="email">Email</a>
-            <a href="{% url 'schedule:create' %}?team={{ team.pk }}" class="schedule">Schedule</a>
+        <div class="team-card__actions">
+            <a href="{% url 'messaging:compose' %}?recipient_name={{ team.manager }}&subject=Re: {{ team.name }}" class="button button--secondary button--small team-card__action">Email</a>
+            <a href="{% url 'schedule:create' %}?team={{ team.pk }}" class="button button--primary button--small team-card__action">Schedule</a>
         </div>
-    </div>
+      </div>
+    </article>
     {% endfor %}
 </div>
 {% else %}
-<div class="no-results">
+<div class="teams-page__empty">
     <p>No teams found{% if query %} for "<strong>{{ query }}</strong>"{% endif %}.</p>
 </div>
 {% endif %}
