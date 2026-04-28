@@ -2,4 +2,5 @@ from django.apps import AppConfig
 
 
 class OrganisationConfig(AppConfig):
-    name = 'organisation'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "organisation"
