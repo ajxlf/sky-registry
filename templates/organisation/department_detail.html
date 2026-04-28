@@ -64,7 +64,7 @@
     <ul class="dependency-list">
       {% for dependency in dependencies %}
       <li class="dependency-list__item">
-        {{ dependency.upstream_team.name }} -> {{ dependency.downstream_team.name }}
+        {{ dependency.upstream_team.name }} &rarr; {{ dependency.downstream_team.name }}
         {% if dependency.flow_description %} ({{ dependency.flow_description }}){% endif %}
       </li>
       {% empty %}

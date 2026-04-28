@@ -32,7 +32,7 @@
         <div class="dependencies">
             {% for dep in team.upstream_dependencies.all %}
             <div>
-                <span style="color:#49be2c;">↑ {{ dep.upstream_team.name }}</span>
+                <span class="upstream">↑ {{ dep.upstream_team.name }}</span>
                 {% if dep.flow_description %}
                 <div class="flow">{{ dep.flow_description }}</div>
                 {% endif %}

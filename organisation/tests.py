@@ -33,7 +33,11 @@ class LoginRequiredTest(TestCase):
             reverse("login"), {"username": "testuser", "password": "wrongpassword"}
         )
         self.assertEqual(response.status_code, 200)
-        self.assertIn("Incorrect username or password", response.content.decode())
+        # Matches django.contrib.auth.forms.AuthenticationForm.invalid_login
+        self.assertContains(
+            response,
+            "Please enter a correct username and password",
+        )
 
     def test_logout_redirects_to_login(self):
         self.client.login(username="testuser", password="sky1234")
