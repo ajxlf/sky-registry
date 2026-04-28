@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "organisation",
     "messaging.apps.MessagingConfig",
     "schedule.apps.ScheduleConfig",
+    "reports.apps.ReportsConfig",
 ]
 
 MIDDLEWARE = [

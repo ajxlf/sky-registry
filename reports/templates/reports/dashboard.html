@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Reports | Sky Registry{% endblock %}
+{% block page_title %}Management Reports{% endblock %}
+{% block page_subtitle %}Generate summary insights for departments, users, and management gaps{% endblock %}
+
+{% block content %}
+<div class="messaging-shell">
+  <section class="card messaging-card">
+    <header class="messaging-card__header">
+      <div>
+        <h3 class="section-title">Registry Summary</h3>
+        <p class="section-subtitle">Snapshot generated on {{ generated_at|date:"M j, Y H:i" }}</p>
+      </div>
+
+      <div class="message-row__actions">
+        <a href="{% url 'reports:export_pdf' %}" class="button button--secondary">Download PDF</a>
+        <a href="{% url 'reports:export_csv' %}" class="button button--primary">Download Excel</a>
+      </div>
+    </header>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <p class="stat-card__label">Total Teams</p>
+        <p class="stat-card__value">{{ total_teams }}</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-card__label">Total Departments</p>
+        <p class="stat-card__value">{{ total_departments }}</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-card__label">Registered Users</p>
+        <p class="stat-card__value">{{ total_users }}</p>
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-box">
+        <p class="info-box__label">Teams Without Managers</p>
+        <p class="info-box__value">{{ teams_without_managers|length }}</p>
+      </div>
+      <div class="info-box">
+        <p class="info-box__label">Summary</p>
+        <p class="info-box__value">
+          The dashboard highlights organisational coverage and management gaps in one place.
+        </p>
+      </div>
+    </div>
+
+    <h3 class="section-title">Departments Overview</h3>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Department</th>
+            <th>Leader</th>
+            <th>Number of Teams</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for department in departments_with_team_counts %}
+          <tr>
+            <td>{{ department.name }}</td>
+            <td>{{ department.leader }}</td>
+            <td>{{ department.team_count }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="3">
+              <div class="empty-state">No departments have been added yet.</div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="section-title">Teams Without Managers</h3>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Department</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for team in teams_without_managers %}
+          <tr>
+            <td>{{ team.name }}</td>
+            <td>{{ team.department.name }}</td>
+            <td><span class="badge badge--muted">Manager Missing</span></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="3">
+              <div class="empty-state">Every team currently has a recorded manager.</div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+{% endblock %}
