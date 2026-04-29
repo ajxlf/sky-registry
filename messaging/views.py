@@ -1,4 +1,5 @@
 from django.contrib import messages as flash_messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -8,12 +9,12 @@ from .models import Message
 from django.urls import reverse
 
 
-CURRENT_USER_NAME = 'John Doe'
-CURRENT_USER_EMAIL = 'john.doe@skyengineering.com'
+CURRENT_USER_NAME = "John Doe"
+CURRENT_USER_EMAIL = "john.doe@skyengineering.com"
 
 
 def _filtered(qs, query):
-    query = (query or '').strip()
+    query = (query or "").strip()
     if not query:
         return qs
     return qs.filter(
@@ -25,164 +26,168 @@ def _filtered(qs, query):
     ).distinct()
 
 
+@login_required
 def inbox(request):
-    query = request.GET.get('q', '').strip()
-    message_list = _filtered(
-        Message.objects.filter(folder=Message.FOLDER_INBOX), query
-    )
+    query = request.GET.get("q", "").strip()
+    message_list = _filtered(Message.objects.filter(folder=Message.FOLDER_INBOX), query)
     return render(
         request,
-        'messaging/inbox.html',
+        "messaging/inbox.html",
         {
-            'message_list': message_list,
-            'active_folder': 'inbox',
-            'query': query,
+            "message_list": message_list,
+            "active_folder": "inbox",
+            "query": query,
         },
     )
 
 
+@login_required
 def sent(request):
-    query = request.GET.get('q', '').strip()
-    message_list = _filtered(
-        Message.objects.filter(folder=Message.FOLDER_SENT), query
-    )
+    query = request.GET.get("q", "").strip()
+    message_list = _filtered(Message.objects.filter(folder=Message.FOLDER_SENT), query)
     return render(
         request,
-        'messaging/sent.html',
+        "messaging/sent.html",
         {
-            'message_list': message_list,
-            'active_folder': 'sent',
-            'query': query,
+            "message_list": message_list,
+            "active_folder": "sent",
+            "query": query,
         },
     )
 
 
+@login_required
 def drafts(request):
-    query = request.GET.get('q', '').strip()
-    message_list = _filtered(
-        Message.objects.filter(folder=Message.FOLDER_DRAFT), query
-    )
+    query = request.GET.get("q", "").strip()
+    message_list = _filtered(Message.objects.filter(folder=Message.FOLDER_DRAFT), query)
     return render(
         request,
-        'messaging/drafts.html',
+        "messaging/drafts.html",
         {
-            'message_list': message_list,
-            'active_folder': 'drafts',
-            'query': query,
+            "message_list": message_list,
+            "active_folder": "drafts",
+            "query": query,
         },
     )
 
 
+@login_required
 def compose(request):
     initial = {
-        'recipient_name': request.GET.get('recipient_name', ''),
-        'recipient_email': request.GET.get('recipient_email', ''),
-        'subject': request.GET.get('subject', ''),
-        'body': request.GET.get('body', ''),
+        "recipient_name": request.GET.get("recipient_name", ""),
+        "recipient_email": request.GET.get("recipient_email", ""),
+        "subject": request.GET.get("subject", ""),
+        "body": request.GET.get("body", ""),
     }
-    if request.method == 'POST':
+    if request.method == "POST":
         form = MessageForm(request.POST)
-        action = request.POST.get('action', 'send')
+        action = request.POST.get("action", "send")
         if form.is_valid():
             message = form.save(commit=False)
             message.sender_name = CURRENT_USER_NAME
             message.sender_email = CURRENT_USER_EMAIL
-            if action == 'draft':
+            if action == "draft":
                 message.folder = Message.FOLDER_DRAFT
                 message.save()
-                flash_messages.success(request, 'Draft saved.')
-                return redirect('messaging:drafts')
+                flash_messages.success(request, "Draft saved.")
+                return redirect("messaging:drafts")
             message.folder = Message.FOLDER_SENT
             message.save()
-            flash_messages.success(request, 'Message sent.')
-            return redirect('messaging:sent')
+            flash_messages.success(request, "Message sent.")
+            return redirect("messaging:sent")
     else:
         form = MessageForm(initial=initial)
 
     return render(
         request,
-        'messaging/compose.html',
+        "messaging/compose.html",
         {
-            'form': form,
-            'active_folder': 'compose',
+            "form": form,
+            "active_folder": "compose",
         },
     )
 
 
+@login_required
 def view_message(request, pk):
     message = get_object_or_404(Message, pk=pk)
     if message.folder == Message.FOLDER_INBOX and not message.is_read:
         message.is_read = True
-        message.save(update_fields=['is_read', 'updated_at'])
+        message.save(update_fields=["is_read", "updated_at"])
 
     active_folder = {
-        Message.FOLDER_INBOX: 'inbox',
-        Message.FOLDER_SENT: 'sent',
-        Message.FOLDER_DRAFT: 'drafts',
-    }.get(message.folder, 'inbox')
+        Message.FOLDER_INBOX: "inbox",
+        Message.FOLDER_SENT: "sent",
+        Message.FOLDER_DRAFT: "drafts",
+    }.get(message.folder, "inbox")
 
     return render(
         request,
-        'messaging/view.html',
+        "messaging/view.html",
         {
-            'message': message,
-            'active_folder': active_folder,
+            "message": message,
+            "active_folder": active_folder,
         },
     )
 
 
+@login_required
 def edit_draft(request, pk):
     message = get_object_or_404(Message, pk=pk, folder=Message.FOLDER_DRAFT)
-    if request.method == 'POST':
+    if request.method == "POST":
         form = MessageForm(request.POST, instance=message)
-        action = request.POST.get('action', 'send')
+        action = request.POST.get("action", "send")
         if form.is_valid():
             updated = form.save(commit=False)
             updated.sender_name = CURRENT_USER_NAME
             updated.sender_email = CURRENT_USER_EMAIL
-            if action == 'draft':
+            if action == "draft":
                 updated.folder = Message.FOLDER_DRAFT
                 updated.save()
-                flash_messages.success(request, 'Draft updated.')
-                return redirect('messaging:drafts')
+                flash_messages.success(request, "Draft updated.")
+                return redirect("messaging:drafts")
             updated.folder = Message.FOLDER_SENT
             updated.save()
-            flash_messages.success(request, 'Message sent.')
-            return redirect('messaging:sent')
+            flash_messages.success(request, "Message sent.")
+            return redirect("messaging:sent")
     else:
         form = MessageForm(instance=message)
 
     return render(
         request,
-        'messaging/edit.html',
+        "messaging/edit.html",
         {
-            'form': form,
-            'message': message,
-            'active_folder': 'drafts',
+            "form": form,
+            "message": message,
+            "active_folder": "drafts",
         },
     )
 
 
+@login_required
 def delete_message(request, pk):
     message = get_object_or_404(Message, pk=pk)
     folder = message.folder
-    if request.method == 'POST':
+    if request.method == "POST":
         message.delete()
-        flash_messages.success(request, 'Message deleted.')
-        return redirect({
-            Message.FOLDER_INBOX: 'messaging:inbox',
-            Message.FOLDER_SENT: 'messaging:sent',
-            Message.FOLDER_DRAFT: 'messaging:drafts',
-        }[folder])
-    return redirect('messaging:view', pk=message.pk)
+        flash_messages.success(request, "Message deleted.")
+        return redirect(
+            {
+                Message.FOLDER_INBOX: "messaging:inbox",
+                Message.FOLDER_SENT: "messaging:sent",
+                Message.FOLDER_DRAFT: "messaging:drafts",
+            }[folder]
+        )
+    return redirect("messaging:view", pk=message.pk)
 
 
+@login_required
 def reply(request, pk):
     original = get_object_or_404(Message, pk=pk)
 
-    subject = original.subject or ''
-    if not subject.lower().startswith('re:'):
-        subject = f'Re: {subject}'
+    subject = original.subject or ""
+    if not subject.lower().startswith("re:"):
+        subject = f"Re: {subject}"
 
     return redirect(
         f"{reverse('messaging:compose')}?recipient_name={original.sender_name}"
@@ -191,16 +196,15 @@ def reply(request, pk):
     )
 
 
+@login_required
 def forward(request, pk):
     original = get_object_or_404(Message, pk=pk)
 
-    subject = original.subject or ''
-    if not subject.lower().startswith('fwd:'):
-        subject = f'Fwd: {subject}'
+    subject = original.subject or ""
+    if not subject.lower().startswith("fwd:"):
+        subject = f"Fwd: {subject}"
 
-    return redirect(
-        f"{reverse('messaging:compose')}?subject={subject}"
-    )
+    return redirect(f"{reverse('messaging:compose')}?subject={subject}")
 
 
 def _url(name):
