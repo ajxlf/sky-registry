@@ -52,6 +52,23 @@ class MessagingViewsTests(TestCase):
         self.inbox_msg.refresh_from_db()
         self.assertTrue(self.inbox_msg.is_read)
 
+    def test_inbox_badge_counts_only_unread_inbox_messages(self):
+        self.inbox_msg.is_read = True
+        self.inbox_msg.save(update_fields=["is_read"])
+        Message.objects.create(
+            sender_name="John Doe",
+            sender_email="john.doe@skyengineering.com",
+            recipient_name="Ops Team",
+            recipient_email="ops@skyengineering.com",
+            subject="Unsent draft",
+            body="Still drafting",
+            folder=Message.FOLDER_DRAFT,
+            is_read=False,
+        )
+        response = self.client.get(reverse("messaging:inbox"))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "folder-nav__badge")
+
     def test_compose_send_creates_sent_message(self):
         response = self.client.post(
             reverse("messaging:compose"),

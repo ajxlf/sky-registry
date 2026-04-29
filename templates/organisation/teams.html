@@ -31,6 +31,7 @@ W1772798
       <div class="card__body team-card__body">
         <h3 class="section-title team-card__name">{{ team.name }}</h3>
         <p class="team-card__meta">{{ team.department.name }} &bull; Lead: {{ team.manager }}</p>
+        <p class="team-card__meta">Contact channel: {{ team.contact_channel|default:"Not Available" }}</p>
 
         {% if team.skills %}
         <div class="team-card__skills">

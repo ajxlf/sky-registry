@@ -7,7 +7,7 @@
   {"model":"organisation.team","pk":1,"fields":{"name":"Code Warriors","manager":"Olivia Carter","status":"Active","skills":"AWS/GCP, Terraform, Kubernetes, CI/CD","department":1}},
   {"model":"organisation.team","pk":2,"fields":{"name":"The Debuggers","manager":"James Bennett","status":"Active","skills":"Debugging Tools (GDB/LLDB), Stack Traces, Log Analysis, Python","department":1}},
   {"model":"organisation.team","pk":3,"fields":{"name":"Bit Masters","manager":"Emma Richardson","status":"Active","skills":"Cryptography, Penetration Testing, Security Compliance (ISO 27001)","department":1}},
-  {"model":"organisation.team","pk":4,"fields":{"name":"Agile Avengers","manager":"Benjamin Hayes","status":"Active","skills":"Agile Frameworks (Scrum/SAFe/Kanban), Jira, Miro, Confluence","department":1}},
+  {"model":"organisation.team","pk":4,"fields":{"name":"Agile Avengers","manager":"Benjamin Hayes","status":"Active","contact_channel":"peacock-bravo, gst-xtv-commerce, gst-xtv-bravo-frontdoor","skills":"Agile Frameworks (Scrum/SAFe/Kanban), Jira, Miro, Confluence","department":1}},
   {"model":"organisation.team","pk":5,"fields":{"name":"API Avengers","manager":"Henry Ward","status":"Active","skills":"API Security (OAuth/JWT), Postman, OpenAPI/Swagger, REST","department":1}},
   {"model":"organisation.team","pk":6,"fields":{"name":"Full Stack Ninjas","manager":"Noah Campbell","status":"Active","skills":"React, Node.js, TypeScript, GraphQL","department":1}},
   {"model":"organisation.team","pk":7,"fields":{"name":"Data Wranglers","manager":"Alexander Perry","status":"Active","skills":"SQL, NoSQL, Big Data (Hadoop/Spark/Kafka), Python","department":2}},

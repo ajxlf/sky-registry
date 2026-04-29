@@ -10,7 +10,7 @@ from .models import Department, Team, Dependency
 class TeamInline(admin.TabularInline):
     model = Team
     extra = 0
-    fields = ("name", "manager", "status", "skills")
+    fields = ("name", "manager", "status", "contact_channel", "skills")
 
 
 class DependencyInline(admin.TabularInline):
@@ -29,9 +29,9 @@ class DepartmentAdmin(admin.ModelAdmin):
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
-    list_display = ("name", "manager", "status", "department")
+    list_display = ("name", "manager", "status", "contact_channel", "department")
     list_filter = ("status", "department")
-    search_fields = ("name", "manager", "department__name")
+    search_fields = ("name", "manager", "contact_channel", "department__name")
     inlines = [DependencyInline]
 
 

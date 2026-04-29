@@ -47,6 +47,7 @@ W1772798
             <th>Team Name</th>
             <th>Manager</th>
             <th>Status</th>
+            <th>Contact Channel</th>
           </tr>
         </thead>
         <tbody>
@@ -55,10 +56,11 @@ W1772798
             <td>{{ team.name }}</td>
             <td>{{ team.manager }}</td>
             <td><span class="badge badge--success">{{ team.status }}</span></td>
+            <td>{{ team.contact_channel|default:"Not Available" }}</td>
           </tr>
           {% empty %}
           <tr>
-            <td colspan="3">No teams recorded.</td>
+            <td colspan="4">No teams recorded.</td>
           </tr>
           {% endfor %}
         </tbody>
