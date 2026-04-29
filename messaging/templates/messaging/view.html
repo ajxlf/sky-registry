@@ -1,28 +1,41 @@
 {% extends "base.html" %}
+<!-- extend base layout -->
 
 {% block title %}{{ message.subject|default:"(no subject)" }} | Sky Registry{% endblock %}
+<!-- page title shows message subject -->
+
 {% block page_title %}View Message{% endblock %}
+<!-- main heading -->
+
 {% block page_subtitle %}{{ message.subject|default:"(no subject)" }}{% endblock %}
+<!-- subtitle shows message subject -->
 
 {% block content %}
 <div class="messaging-shell">
+  <!-- main container -->
 
   {% include "messaging/_folder_nav.html" with active_folder=active_folder %}
+  <!-- navigation tabs (active folder comes from view) -->
 
   <section class="card messaging-card message-detail">
+    <!-- card layout for message details -->
 
     <!-- Header -->
     <header class="message-detail__header">
       <h3 class="message-detail__subject">
         {{ message.subject|default:"(no subject)" }}
       </h3>
+      <!-- show subject -->
+
       <p class="message-detail__date">
         {{ message.created_at|date:"F j, Y, g:i A" }}
       </p>
+      <!-- show full date and time -->
     </header>
 
     <!-- Meta -->
     <dl class="message-detail__meta">
+      <!-- message info (from / to) -->
 
       <div class="message-detail__meta-row">
         <dt>From</dt>
@@ -30,6 +43,7 @@
           <span class="message-detail__person">{{ message.sender_name }}</span>
           <span class="message-detail__muted">&lt;{{ message.sender_email }}&gt;</span>
         </dd>
+        <!-- show sender name and email -->
       </div>
 
       <div class="message-detail__meta-row">
@@ -45,6 +59,7 @@
             </span>
           {% endif %}
         </dd>
+        <!-- show recipient info -->
       </div>
 
     </dl>
@@ -53,25 +68,31 @@
     <article class="message-detail__body">
       {{ message.body|linebreaks }}
     </article>
+    <!-- show message content with line breaks -->
 
     <!-- Actions -->
     <footer class="message-detail__actions">
+      <!-- buttons for message actions -->
 
-      <!-- LEFT (primary action first) -->
+      <!-- Reply -->
       <a
         href="{% url 'messaging:reply' message.pk %}"
         class="button button--primary"
       >
         Reply
       </a>
+      <!-- reply to message -->
 
+      <!-- Forward -->
       <a
         href="{% url 'messaging:forward' message.pk %}"
         class="button button--ghost"
       >
         Forward
       </a>
+      <!-- forward message -->
 
+      <!-- Delete -->
       <form
         method="post"
         action="{% url 'messaging:delete' message.pk %}"
@@ -79,9 +100,12 @@
         onsubmit="return confirm('Delete this message?');"
       >
         {% csrf_token %}
+        <!-- security token -->
+
         <button type="submit" class="button button--danger">
           Delete
         </button>
+        <!-- delete message -->
       </form>
 
     </footer>

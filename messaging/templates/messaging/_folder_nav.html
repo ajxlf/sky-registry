@@ -1,31 +1,46 @@
 {% load messaging_tags %}
+<!-- load custom template tags for messaging (used for unread count) -->
+
 {% unread_inbox_count as unread %}
+<!-- get number of unread messages and store in variable 'unread' -->
 
 <nav class="folder-nav" aria-label="Message folders">
+  <!-- navigation bar for message folders -->
 
   <div class="folder-nav__left">
+    <!-- left side: main message folders -->
+
     <a href="{% url 'messaging:inbox' %}"
        class="folder-nav__tab {% if active_folder == 'inbox' %}folder-nav__tab--active{% endif %}">
+      <!-- link to inbox page, highlight if current page is inbox -->
+
       Inbox
+
       {% if unread %}
+        <!-- show unread message count if there are unread messages -->
         <span class="folder-nav__badge">{{ unread }}</span>
       {% endif %}
     </a>
 
     <a href="{% url 'messaging:sent' %}"
        class="folder-nav__tab {% if active_folder == 'sent' %}folder-nav__tab--active{% endif %}">
+      <!-- link to sent messages page -->
       Sent
     </a>
 
     <a href="{% url 'messaging:drafts' %}"
        class="folder-nav__tab {% if active_folder == 'drafts' %}folder-nav__tab--active{% endif %}">
+      <!-- link to drafts page -->
       Drafts
     </a>
   </div>
 
   <div class="folder-nav__right">
+    <!-- right side: compose button -->
+
     <a href="{% url 'messaging:compose' %}"
        class="folder-nav__tab folder-nav__tab--cta {% if active_folder == 'compose' %}folder-nav__tab--active{% endif %}">
+      <!-- link to compose message page -->
       + Compose
     </a>
   </div>

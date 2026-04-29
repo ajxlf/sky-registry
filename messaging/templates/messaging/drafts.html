@@ -1,25 +1,37 @@
 {% extends "base.html" %}
+<!-- extend base layout -->
 
 {% block title %}Drafts | Sky Registry{% endblock %}
+<!-- page title -->
+
 {% block page_title %}Drafts{% endblock %}
+<!-- main heading -->
+
 {% block page_subtitle %}Messages saved as drafts{% endblock %}
+<!-- small description -->
 
 {% block content %}
 <div class="messaging-shell">
+  <!-- main container for messaging pages -->
 
   {% include "messaging/_folder_nav.html" with active_folder="drafts" %}
+  <!-- include navigation tabs and highlight drafts -->
 
   <section class="card messaging-card">
+    <!-- card layout -->
 
     <!-- Header -->
     <header class="messaging-card__header">
       <div>
         <h3 class="section-title">Drafts</h3>
+
         <p class="section-subtitle">
           {{ message_list|length }} draft{{ message_list|length|pluralize }}
         </p>
+        <!-- show number of drafts -->
       </div>
 
+      <!-- Search form -->
       <form method="get" class="messaging-search">
         <input
           type="text"
@@ -28,12 +40,14 @@
           placeholder="Search drafts..."
           class="form-input messaging-search__input"
         />
+        <!-- input to search drafts -->
       </form>
     </header>
 
     <!-- Table -->
     <div class="table-wrap">
       <table class="data-table message-table">
+
         <thead>
           <tr>
             <th>Recipient</th>
@@ -45,25 +59,31 @@
 
         <tbody>
           {% for message in message_list %}
+          <!-- loop through all draft messages -->
+
           <tr class="message-row">
 
             <!-- Recipient -->
             <td class="message-row__sender">
               {{ message.recipient_name|default:"(no recipient)" }}
+              <!-- show recipient name or default text -->
             </td>
 
             <!-- Subject -->
             <td class="message-row__subject">
               {{ message.subject|default:"(no subject)" }}
+              <!-- show subject or default text -->
             </td>
 
             <!-- Date -->
             <td class="message-row__date">
               {{ message.updated_at|date:"M j, Y, g:i A" }}
+              <!-- show last updated date -->
             </td>
 
             <!-- Actions -->
             <td class="message-row__actions">
+              <!-- buttons for edit and delete -->
 
               <a
                 href="{% url 'messaging:edit' message.pk %}"
@@ -71,6 +91,7 @@
               >
                 Edit
               </a>
+              <!-- go to edit draft page -->
 
               <form
                 method="post"
@@ -79,12 +100,15 @@
                 onsubmit="return confirm('Delete this draft?');"
               >
                 {% csrf_token %}
+                <!-- security token -->
+
                 <button
                   type="submit"
                   class="button button--danger button--small"
                 >
                   Delete
                 </button>
+                <!-- delete draft -->
               </form>
 
             </td>
@@ -92,6 +116,8 @@
           </tr>
 
           {% empty %}
+          <!-- show message if no drafts -->
+
           <tr>
             <td colspan="4">
               <div class="empty-state">
@@ -99,6 +125,7 @@
               </div>
             </td>
           </tr>
+
           {% endfor %}
         </tbody>
 
