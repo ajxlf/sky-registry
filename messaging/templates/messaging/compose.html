@@ -1,15 +1,24 @@
 {% extends "base.html" %}
+<!-- extend base layout -->
 
 {% block title %}Compose | Sky Registry{% endblock %}
+<!-- page title -->
+
 {% block page_title %}Compose Message{% endblock %}
+<!-- main heading -->
+
 {% block page_subtitle %}Send a new message to a team member{% endblock %}
+<!-- small description under title -->
 
 {% block content %}
 <div class="messaging-shell">
+  <!-- main container for messaging pages -->
 
   {% include "messaging/_folder_nav.html" with active_folder="compose" %}
+  <!-- include navigation tabs and highlight compose -->
 
   <section class="card messaging-card">
+    <!-- card layout for form -->
 
     <!-- Header -->
     <header class="messaging-card__header messaging-card__header--single">
@@ -24,8 +33,10 @@
     <!-- Form -->
     <form method="post" class="compose-form">
       {% csrf_token %}
+      <!-- security token for form -->
 
       {% if form.non_field_errors %}
+        <!-- show general form errors -->
         <div class="form-error">
           {{ form.non_field_errors }}
         </div>
@@ -38,8 +49,10 @@
         </label>
 
         {{ form.recipient_email }}
+        <!-- input for recipient email -->
 
         {% if form.recipient_email.errors %}
+          <!-- show error if email is invalid -->
           <p class="form-field__error">
             {{ form.recipient_email.errors|striptags }}
           </p>
@@ -53,8 +66,10 @@
         </label>
 
         {{ form.subject }}
+        <!-- input for message subject -->
 
         {% if form.subject.errors %}
+          <!-- show error if subject is invalid -->
           <p class="form-field__error">
             {{ form.subject.errors|striptags }}
           </p>
@@ -68,8 +83,10 @@
         </label>
 
         {{ form.body }}
+        <!-- textarea for message content -->
 
         {% if form.body.errors %}
+          <!-- show error if message is empty or invalid -->
           <p class="form-field__error">
             {{ form.body.errors|striptags }}
           </p>
@@ -82,9 +99,11 @@
         name="recipient_name"
         value="{{ form.recipient_name.value|default:'' }}"
       />
+      <!-- hidden field to store recipient name -->
 
       <!-- Actions -->
       <div class="compose-form__actions">
+        <!-- buttons for form actions -->
 
         <button
           type="submit"
@@ -94,6 +113,7 @@
         >
           Save as Draft
         </button>
+        <!-- save message as draft -->
 
         <button
           type="submit"
@@ -103,6 +123,7 @@
         >
           Send Message
         </button>
+        <!-- send the message -->
 
       </div>
 

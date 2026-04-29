@@ -1,31 +1,44 @@
 {% extends "base.html" %}
+<!-- extend base layout -->
 
 {% block title %}Edit Draft | Sky Registry{% endblock %}
+<!-- page title -->
+
 {% block page_title %}Edit Draft{% endblock %}
+<!-- main heading -->
+
 {% block page_subtitle %}Update and send, or keep saving as draft{% endblock %}
+<!-- small description -->
 
 {% block content %}
 <div class="messaging-shell">
+  <!-- main container -->
 
   {% include "messaging/_folder_nav.html" with active_folder="drafts" %}
+  <!-- navigation tabs (drafts is active) -->
 
   <section class="card messaging-card">
+    <!-- card layout -->
 
     <!-- Header -->
     <header class="messaging-card__header messaging-card__header--single">
       <div>
         <h3 class="section-title">Edit Draft</h3>
+
         <p class="section-subtitle">
           Last saved {{ message.updated_at|date:"M j, Y, g:i A" }}
         </p>
+        <!-- show last updated time -->
       </div>
     </header>
 
     <!-- Form -->
     <form method="post" class="compose-form">
       {% csrf_token %}
+      <!-- security token -->
 
       {% if form.non_field_errors %}
+        <!-- show general form errors -->
         <div class="form-error">
           {{ form.non_field_errors }}
         </div>
@@ -38,11 +51,13 @@
         </label>
 
         {{ form.recipient_email }}
+        <!-- input for recipient email -->
 
         {% if form.recipient_email.errors %}
           <p class="form-field__error">
             {{ form.recipient_email.errors|striptags }}
           </p>
+          <!-- show error if invalid -->
         {% endif %}
       </div>
 
@@ -53,11 +68,13 @@
         </label>
 
         {{ form.subject }}
+        <!-- input for subject -->
 
         {% if form.subject.errors %}
           <p class="form-field__error">
             {{ form.subject.errors|striptags }}
           </p>
+          <!-- show error if invalid -->
         {% endif %}
       </div>
 
@@ -68,11 +85,13 @@
         </label>
 
         {{ form.body }}
+        <!-- textarea for message -->
 
         {% if form.body.errors %}
           <p class="form-field__error">
             {{ form.body.errors|striptags }}
           </p>
+          <!-- show error if empty/invalid -->
         {% endif %}
       </div>
 
@@ -82,9 +101,11 @@
         name="recipient_name"
         value="{{ form.recipient_name.value|default:'' }}"
       />
+      <!-- hidden field to store recipient name -->
 
       <!-- Actions -->
       <div class="compose-form__actions">
+        <!-- buttons section -->
 
         <!-- LEFT: Delete -->
         <button
@@ -96,8 +117,9 @@
         >
           Delete Draft
         </button>
+        <!-- delete draft without validating form -->
 
-        <!-- RIGHT: Save + Send -->
+        <!-- RIGHT: Save -->
         <button
           type="submit"
           name="action"
@@ -106,7 +128,9 @@
         >
           Save as Draft
         </button>
+        <!-- save changes as draft -->
 
+        <!-- RIGHT: Send -->
         <button
           type="submit"
           name="action"
@@ -115,6 +139,7 @@
         >
           Send Message
         </button>
+        <!-- send the message -->
 
       </div>
 

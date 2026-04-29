@@ -1,25 +1,37 @@
 {% extends "base.html" %}
+<!-- extend base layout -->
 
 {% block title %}Sent | Sky Registry{% endblock %}
+<!-- page title -->
+
 {% block page_title %}Sent Messages{% endblock %}
+<!-- main heading -->
+
 {% block page_subtitle %}Messages you have sent{% endblock %}
+<!-- small description -->
 
 {% block content %}
 <div class="messaging-shell">
+  <!-- main container -->
 
   {% include "messaging/_folder_nav.html" with active_folder="sent" %}
+  <!-- navigation tabs (sent is active) -->
 
   <section class="card messaging-card">
+    <!-- card layout -->
 
     <!-- Header -->
     <header class="messaging-card__header">
       <div>
         <h3 class="section-title">Sent Messages</h3>
+
         <p class="section-subtitle">
           {{ message_list|length }} message{{ message_list|length|pluralize }}
         </p>
+        <!-- show total number of sent messages -->
       </div>
 
+      <!-- Search -->
       <form method="get" class="messaging-search">
         <input
           type="text"
@@ -28,12 +40,14 @@
           placeholder="Search messages..."
           class="form-input messaging-search__input"
         />
+        <!-- search input -->
       </form>
     </header>
 
     <!-- Table -->
     <div class="table-wrap">
       <table class="data-table message-table">
+
         <thead>
           <tr>
             <th>Recipient</th>
@@ -44,6 +58,8 @@
 
         <tbody>
           {% for message in message_list %}
+          <!-- loop through sent messages -->
+
           <tr class="message-row">
 
             <!-- Recipient -->
@@ -51,6 +67,7 @@
               <a href="{% url 'messaging:view' message.pk %}" class="message-row__link">
                 {{ message.recipient_name|default:message.recipient_email }}
               </a>
+              <!-- show recipient name or fallback to email -->
             </td>
 
             <!-- Subject -->
@@ -58,16 +75,20 @@
               <a href="{% url 'messaging:view' message.pk %}" class="message-row__link">
                 {{ message.subject|default:"(no subject)" }}
               </a>
+              <!-- show subject or default -->
             </td>
 
             <!-- Date -->
             <td class="message-row__date">
               {{ message.created_at|date:"M j, Y" }}
+              <!-- show sent date -->
             </td>
 
           </tr>
 
           {% empty %}
+          <!-- show message if no sent messages -->
+
           <tr>
             <td colspan="3">
               <div class="empty-state">
@@ -75,6 +96,7 @@
               </div>
             </td>
           </tr>
+
           {% endfor %}
         </tbody>
 

@@ -1,25 +1,37 @@
 {% extends "base.html" %}
+<!-- extend base layout -->
 
 {% block title %}Inbox | Sky Registry{% endblock %}
+<!-- page title -->
+
 {% block page_title %}Inbox{% endblock %}
+<!-- main heading -->
+
 {% block page_subtitle %}Messages received from your team{% endblock %}
+<!-- small description -->
 
 {% block content %}
 <div class="messaging-shell">
+  <!-- main container -->
 
   {% include "messaging/_folder_nav.html" with active_folder="inbox" %}
+  <!-- navigation tabs (inbox is active) -->
 
   <section class="card messaging-card">
+    <!-- card layout -->
 
     <!-- Header -->
     <header class="messaging-card__header">
       <div>
         <h3 class="section-title">Inbox</h3>
+
         <p class="section-subtitle">
           {{ message_list|length }} message{{ message_list|length|pluralize }}
         </p>
+        <!-- show total number of messages -->
       </div>
 
+      <!-- Search -->
       <form method="get" class="messaging-search">
         <input
           type="text"
@@ -28,12 +40,14 @@
           placeholder="Search messages..."
           class="form-input messaging-search__input"
         />
+        <!-- search input for messages -->
       </form>
     </header>
 
     <!-- Table -->
     <div class="table-wrap">
       <table class="data-table message-table">
+
         <thead>
           <tr>
             <th></th>
@@ -45,11 +59,15 @@
 
         <tbody>
           {% for message in message_list %}
+          <!-- loop through all messages -->
+
           <tr class="message-row {% if not message.is_read %}message-row--unread{% endif %}">
+            <!-- highlight row if message is unread -->
 
             <!-- Unread dot -->
             <td class="message-row__dot-cell">
               <span class="message-row__dot {% if message.is_read %}message-row__dot--hidden{% endif %}"></span>
+              <!-- show dot if message is unread -->
             </td>
 
             <!-- Sender -->
@@ -57,6 +75,7 @@
               <a href="{% url 'messaging:view' message.pk %}" class="message-row__link">
                 {{ message.sender_name }}
               </a>
+              <!-- link to open message -->
             </td>
 
             <!-- Subject -->
@@ -64,16 +83,20 @@
               <a href="{% url 'messaging:view' message.pk %}" class="message-row__link">
                 {{ message.subject|default:"(no subject)" }}
               </a>
+              <!-- link to open message, show default if empty -->
             </td>
 
             <!-- Date -->
             <td class="message-row__date">
               {{ message.created_at|date:"M j, Y" }}
+              <!-- show message date -->
             </td>
 
           </tr>
 
           {% empty %}
+          <!-- show message if inbox is empty -->
+
           <tr>
             <td colspan="4">
               <div class="empty-state">
@@ -81,6 +104,7 @@
               </div>
             </td>
           </tr>
+
           {% endfor %}
         </tbody>
 
