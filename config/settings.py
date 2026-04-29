@@ -1,4 +1,10 @@
 """
+Co-Authored by Andre Ferreira,
+Aung Myo Oo,
+Aiman Chowdhury,
+Nima Momenzadehjahromi,
+and Mursal Hassan.
+
 Django settings for config project.
 https://docs.djangoproject.com/en/6.0/topics/settings/
 

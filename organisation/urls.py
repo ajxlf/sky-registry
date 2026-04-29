@@ -1,3 +1,8 @@
+"""
+Authored by Andre Ferreira
+W1772798
+"""
+
 from django.urls import path, include
 from . import views
 

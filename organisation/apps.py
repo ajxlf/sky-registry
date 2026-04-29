@@ -1,3 +1,8 @@
+"""
+Authored by Andre Ferreira
+W1772798
+"""
+
 from django.apps import AppConfig
 
 

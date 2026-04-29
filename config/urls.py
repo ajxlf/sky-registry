@@ -1,3 +1,11 @@
+"""
+Co-Authored by Andre Ferreira,
+Aung Myo Oo,
+Aiman Chowdhury,
+Nima Momenzadehjahromi,
+and Mursal Hassan.
+"""
+
 from django.contrib import admin
 from django.urls import path, include
 

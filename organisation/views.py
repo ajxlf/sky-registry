@@ -1,3 +1,8 @@
+"""
+Authored by Andre Ferreira
+W1772798
+"""
+
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Department, Team, Dependency
@@ -21,9 +26,7 @@ def department_list(request):
 
 @login_required
 def department_detail(request, pk):
-    department = get_object_or_404(
-        Department.objects.prefetch_related("teams"), pk=pk
-    )
+    department = get_object_or_404(Department.objects.prefetch_related("teams"), pk=pk)
     dependencies = Dependency.objects.select_related(
         "upstream_team", "downstream_team"
     ).filter(upstream_team__department=department)
