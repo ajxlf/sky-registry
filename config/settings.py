@@ -10,15 +10,24 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 
 """
 
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure-zt_3)rquekr(1-jgjsg7-9a$-^yk++y9(h9z3c&j79(uh+h$u^"  # In production this would be loaded from an environment variable for security.
-
-DEBUG = True
-
-ALLOWED_HOSTS = []
+# Safe local defaults. Always set a unique secret and DEBUG=False for deployment.
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY",
+    "django-insecure-local-development-only-key",
+)
+DEBUG = os.environ.get("DJANGO_DEBUG", "true").lower() in {"1", "true", "yes"}
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get(
+        "DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,testserver"
+    ).split(",")
+    if host.strip()
+]
 
 
 # Application definition
