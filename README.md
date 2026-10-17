@@ -53,7 +53,7 @@ A Django web application built as part of the **5COSC021W Coursework 2** group p
 
 | Layer | Technology |
 |-------|-----------|
-| Framework | Django 5.x |
+| Framework | Django 6.0.x |
 | Database | SQLite (development) |
 | Frontend | Custom CSS (no framework) |
 | Auth | Django built-in `django.contrib.auth` |
@@ -94,6 +94,16 @@ source .venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
+
+### Development and deployment configuration
+
+Local development defaults are provided so the project can run without extra configuration. The Django settings can be overridden with environment variables:
+
+- `DJANGO_SECRET_KEY` — set a unique, private secret for deployments.
+- `DJANGO_DEBUG` — set to `false` outside local development.
+- `DJANGO_ALLOWED_HOSTS` — comma-separated hostnames allowed to serve the application.
+
+Do not deploy with the development defaults. Before any public deployment, configure a private secret, disable debug mode, set the correct allowed hosts, and review the remaining Django deployment checks.
 
 ### 4. Apply migrations
 
@@ -148,6 +158,5 @@ Navigate to [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) and log
 ## Notes
 
 - `db.sqlite3` is excluded from version control via `.gitignore`. Run migrations and load fixtures after cloning.
-- The `SECRET_KEY` in `settings.py` is a development key only. In a production deployment it would be loaded from an environment variable.
-- `DEBUG = True` is set for development. This must be set to `False` before any production deployment.
-- PDF export requires the `reportlab` package, which is included in `requirements.txt`.
+- PDF export uses ReportLab, which is installed through `requirements.txt`.
+- This coursework project is a development/demo app, not a production deployment template.
